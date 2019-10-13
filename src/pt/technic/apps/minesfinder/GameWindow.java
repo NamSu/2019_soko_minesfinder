@@ -108,7 +108,7 @@ public class GameWindow extends javax.swing.JFrame {
             }
         };
 
-        KeyListener keyListener = new KeyListener() {
+/*        KeyListener keyListener = new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 ButtonMinefield botao = (ButtonMinefield) e.getSource();
@@ -145,7 +145,7 @@ public class GameWindow extends javax.swing.JFrame {
             @Override
             public void keyReleased(KeyEvent ke) {
             }
-        };
+        };*/
         
         // Create buttons for the player
         for (int x = 0; x < minefield.getWidth(); x++) {
@@ -153,7 +153,7 @@ public class GameWindow extends javax.swing.JFrame {
                 buttons[x][y] = new ButtonMinefield(x, y);
                 buttons[x][y].addActionListener(action);
                 buttons[x][y].addMouseListener(mouseListener);
-                buttons[x][y].addKeyListener(keyListener);
+                //buttons[x][y].addKeyListener(keyListener); // does not use keyListner
                 getContentPane().add(buttons[x][y]);
             }
         }
@@ -184,11 +184,11 @@ public class GameWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE) // size-variables var
+            .addGap(0, 1024, Short.MAX_VALUE) // size-variables var
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE) // size-variables var
+            .addGap(0, 768, Short.MAX_VALUE) // size-variables var
         );
 
         pack();

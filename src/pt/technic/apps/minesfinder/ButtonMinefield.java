@@ -32,16 +32,16 @@ public class ButtonMinefield extends JButton {
                 setBackground(Color.yellow);
                 break;
             case Minefield.MARKED:
-                setText("!");
-                setBackground(Color.red);
+                setText("V");
+                setBackground(Color.orange);
                 break;
             case Minefield.BUSTED:
                 setText("*");
-                setBackground(Color.orange);
+                setBackground(Color.red);
                 break;
             default:
                 setText(String.valueOf(state));
-                setBackground(Color.gray);
+                setBackground(Color.white);
                 break;
         }
     }
