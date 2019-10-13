@@ -31,7 +31,7 @@ public class Minefield {
 
     public Minefield(int width, int height, int numMines) {
         if(numMines<=0){
-            throw new IllegalArgumentException("Mines nuumber must be bigger than 0");
+            throw new IllegalArgumentException("지뢰의 개수는 0보다는 커야합니다.");
         }
         
         this.width = width;

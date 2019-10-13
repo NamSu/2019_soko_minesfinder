@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
+import javax.swing.*;
 
 /**
  *
@@ -20,6 +20,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private RecordTable recordEasy;
     private RecordTable recordMedium;
     private RecordTable recordHard;
+    private RecordTable recordExtreme;
 
     /**
      * Creates new form MinesFinder
@@ -29,6 +30,7 @@ public class MinesFinder extends javax.swing.JFrame {
         recordEasy = new RecordTable();
         recordMedium = new RecordTable();
         recordHard = new RecordTable();
+        recordExtreme = new RecordTable();
 
         readGameRecords();
 
@@ -38,6 +40,8 @@ public class MinesFinder extends javax.swing.JFrame {
         labelMediumPoints.setText(Long.toString(recordMedium.getScore()/1000));
         labelHardName.setText(recordHard.getName());
         labelHardPoints.setText(Long.toString(recordHard.getScore()/1000));
+        labelExtremeName.setText(recordExtreme.getName());
+        labelExtremePoints.setText(Long.toString(recordExtreme.getScore()/1000));
 
         recordEasy.addRecordTableListener(new RecordTableListener() {
             @Override
@@ -57,6 +61,13 @@ public class MinesFinder extends javax.swing.JFrame {
             @Override
             public void recordUpdated(RecordTable record) {
                 recordHardUpdated(record);
+            }
+        });
+
+        recordExtreme.addRecordTableListener(new RecordTableListener() {
+            @Override
+            public void recordUpdated(RecordTable record) {
+                recordExtremeUpdated(record);
             }
         });
     }
@@ -79,6 +90,12 @@ public class MinesFinder extends javax.swing.JFrame {
         saveGameRecords();
     }
 
+    private void recordExtremeUpdated(RecordTable record) {
+        labelExtremeName.setText(record.getName());
+        labelExtremePoints.setText(Long.toString(record.getScore()/1000));
+        saveGameRecords();
+    }
+
     private void saveGameRecords() {
         ObjectOutputStream oos = null;
         try {
@@ -87,6 +104,7 @@ public class MinesFinder extends javax.swing.JFrame {
             oos.writeObject(recordEasy);
             oos.writeObject(recordMedium);
             oos.writeObject(recordHard);
+            oos.writeObject(recordExtreme);
             oos.close();
         } catch (IOException ex) {
             Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE, null,
@@ -103,6 +121,7 @@ public class MinesFinder extends javax.swing.JFrame {
                 recordEasy = (RecordTable) ois.readObject();
                 recordMedium = (RecordTable) ois.readObject();
                 recordHard = (RecordTable) ois.readObject();
+                recordExtreme = (RecordTable) ois.readObject();
                 ois.close();
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE,
@@ -130,6 +149,9 @@ public class MinesFinder extends javax.swing.JFrame {
         labelHard = new javax.swing.JLabel();
         labelHardName = new javax.swing.JLabel();
         labelHardPoints = new javax.swing.JLabel();
+        labelExtreme = new javax.swing.JLabel();
+        labelExtremeName = new javax.swing.JLabel();
+        labelExtremePoints = new javax.swing.JLabel();
         panelBtns = new javax.swing.JPanel();
         btnEasy = new javax.swing.JButton();
         btnMedium = new javax.swing.JButton();
@@ -146,7 +168,7 @@ public class MinesFinder extends javax.swing.JFrame {
         setResizable(false);
 
         panelTitle.setBackground(new java.awt.Color(136, 135, 217));
-        panelTitle.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        panelTitle.setFont(new java.awt.Font("Malgun Gothic", 1, 24)); // NOI18N
         panelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelTitle.setText("\uC9C0\uB8B0\uCC3E\uAE30");
         panelTitle.setOpaque(true);
@@ -154,11 +176,11 @@ public class MinesFinder extends javax.swing.JFrame {
 
         panelRecords.setBackground(new java.awt.Color(118, 206, 108));
 
-        Records.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        Records.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
         Records.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Records.setText("Records");
 
-        labelEasy.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelEasy.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
         labelEasy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEasy.setText("Easy");
 
@@ -166,7 +188,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelEasyPoints.setText("9999");
 
-        labelMedium.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelMedium.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
         labelMedium.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMedium.setText("Medium");
 
@@ -174,7 +196,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelMediumPoints.setText("9999");
 
-        labelHard.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelHard.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
         labelHard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelHard.setText("Hard");
 
@@ -182,53 +204,84 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelHardPoints.setText("9999");
 
+        labelExtreme.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
+        labelExtreme.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelExtreme.setText("Extreme");
+
+        labelExtremeName.setText("Player");
+
+        labelExtremePoints.setText("9999");
+
         javax.swing.GroupLayout panelRecordsLayout = new javax.swing.GroupLayout(panelRecords);
         panelRecords.setLayout(panelRecordsLayout);
         panelRecordsLayout.setHorizontalGroup(
             panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelEasy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Records, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelRecordsLayout.createSequentialGroup()
                 .addContainerGap()
+                
                 .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
+                    .addComponent(labelEasy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
                     .addGroup(panelRecordsLayout.createSequentialGroup()
                         .addComponent(labelEasyName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelEasyPoints))
-                    .addComponent(labelMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    
+                    .addComponent(labelMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
                     .addGroup(panelRecordsLayout.createSequentialGroup()
                         .addComponent(labelMediumName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelMediumPoints))
-                    .addComponent(labelHard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    
+                    .addComponent(labelHard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
                     .addGroup(panelRecordsLayout.createSequentialGroup()
                         .addComponent(labelHardName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelHardPoints)))
-                .addContainerGap())
-        );
+                        .addComponent(labelHardPoints))
+                    
+                    .addComponent(labelExtreme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
+                    .addGroup(panelRecordsLayout.createSequentialGroup()
+                    	.addComponent(labelExtremeName)
+                    	.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    	.addComponent(labelExtremePoints))
+
+                         )
+                .addContainerGap()
+        ));
         panelRecordsLayout.setVerticalGroup(
             panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRecordsLayout.createSequentialGroup()
                 .addComponent(Records)
+                
                 .addGap(18, 18, 18)
                 .addComponent(labelEasy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelEasyPoints)
                     .addComponent(labelEasyName))
+                
                 .addGap(18, 18, 18)
                 .addComponent(labelMedium)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelMediumPoints)
                     .addComponent(labelMediumName))
+                
                 .addGap(18, 18, 18)
                 .addComponent(labelHard)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelHardPoints)
                     .addComponent(labelHardName))
+                
+                .addGap(18, 18, 18)
+                .addComponent(labelExtreme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelExtremePoints)
+                    .addComponent(labelExtremeName)) 
+                
                 .addGap(0, 169, Short.MAX_VALUE))
         );
 
@@ -299,7 +352,7 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     private void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
-        GameWindow gameWindow = new GameWindow(new Minefield(18, 36, 105), recordHard);
+        GameWindow gameWindow = new GameWindow(new Minefield(18, 36, 105), recordExtreme);
         gameWindow.setVisible(true);
     }
 
@@ -363,19 +416,22 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnHard;
     private javax.swing.JButton btnMedium;
+    private javax.swing.JButton btnExtreme;
+    private javax.swing.JButton btnGetInternetRank;
     private javax.swing.JLabel labelEasy;
     private javax.swing.JLabel labelEasyName;
     private javax.swing.JLabel labelEasyPoints;
     private javax.swing.JLabel labelHard;
     private javax.swing.JLabel labelHardName;
     private javax.swing.JLabel labelHardPoints;
+    private javax.swing.JLabel labelExtreme;
+    private javax.swing.JLabel labelExtremeName;
+    private javax.swing.JLabel labelExtremePoints;
     private javax.swing.JLabel labelMedium;
     private javax.swing.JLabel labelMediumName;
     private javax.swing.JLabel labelMediumPoints;
     private javax.swing.JPanel panelBtns;
     private javax.swing.JPanel panelRecords;
     private javax.swing.JLabel panelTitle;
-    private JButton btnExtreme;
-    private JButton btnGetInternetRank;
     // End of variables declaration//GEN-END:variables
 }

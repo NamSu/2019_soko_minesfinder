@@ -49,19 +49,19 @@ public class GameWindow extends javax.swing.JFrame {
                 updateButtonsStates();
                 if (minefield.isGameFinished()) {
                     if (minefield.isPlayerDefeated()) {
-                        JOptionPane.showMessageDialog(null, "Oh, a mine broke",
-                                "Lost!", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ",
+                                "실패", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Congratulations. You managed to discover all the mines in "
-                                + (minefield.getGameDuration() / 1000) + " seconds",
-                                "victory", JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 "
+                                + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.",
+                                "성공", JOptionPane.INFORMATION_MESSAGE
                         );
                         long a = minefield.getGameDuration();
                         long b = record.getScore();
                         boolean newRecord = minefield.getGameDuration() < record.getScore();
 
                         if (newRecord) {
-                            String name = JOptionPane.showInputDialog("Enter your name");
+                            String name = JOptionPane.showInputDialog("이름을 입력하세요.");
                             if(name != "")
                                 record.setRecord(name, minefield.getGameDuration());
                         }
@@ -177,7 +177,7 @@ public class GameWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Game");
+        setTitle("GameWindow");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
