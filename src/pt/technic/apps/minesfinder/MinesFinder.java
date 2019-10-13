@@ -1,5 +1,6 @@
 package pt.technic.apps.minesfinder;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 
 /**
  *
@@ -132,18 +134,21 @@ public class MinesFinder extends javax.swing.JFrame {
         btnEasy = new javax.swing.JButton();
         btnMedium = new javax.swing.JButton();
         btnHard = new javax.swing.JButton();
+        btnGetInternetRank = new javax.swing.JButton();
+        btnExtreme = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MinesFinder");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(600, 450));
+        setPreferredSize(new java.awt.Dimension(800, 600)); // set-home-windows variable var
         setResizable(false);
 
         panelTitle.setBackground(new java.awt.Color(136, 135, 217));
         panelTitle.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         panelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panelTitle.setText("Minesfinder");
+        panelTitle.setText("\uC9C0\uB8B0\uCC3E\uAE30");
         panelTitle.setOpaque(true);
         getContentPane().add(panelTitle, java.awt.BorderLayout.PAGE_START);
 
@@ -231,7 +236,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         panelBtns.setLayout(new java.awt.GridLayout(2, 0));
 
-        btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/easy.png"))); // NOI18N
+        //btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/easy.png"))); // NOI18N
         btnEasy.setText("Easy");
         btnEasy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,7 +245,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnEasy);
 
-        btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/medium.png"))); // NOI18N
+        //btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/medium.png"))); // NOI18N
         btnMedium.setText("Medium");
         btnMedium.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,7 +254,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnMedium);
 
-        btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/hard.png"))); // NOI18N
+        //btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/hard.png"))); // NOI18N
         btnHard.setText("Hard");
         btnHard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +262,25 @@ public class MinesFinder extends javax.swing.JFrame {
             }
         });
         panelBtns.add(btnHard);
-
+        
+        btnExtreme.setText("Extreme");
+        btnExtreme.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExtremeActionPerfomed(evt);
+            }
+        });
+        panelBtns.add(btnExtreme);
+        
+        btnGetInternetRank.setText("Show Internet Ranking");
+        btnGetInternetRank.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetInternetRankActionPerformed(evt);
+            }
+        });
+        panelBtns.add(btnGetInternetRank);
+        
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,6 +293,15 @@ public class MinesFinder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGetInternetRankActionPerformed(java.awt.event.ActionEvent evt) {
+        return;
+    }
+
+    private void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
+        GameWindow gameWindow = new GameWindow(new Minefield(18, 36, 105), recordHard);
+        gameWindow.setVisible(true);
+    }
 
     private void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
         GameWindow gameWindow = new GameWindow(new Minefield(9, 9, 10), recordEasy);
@@ -289,7 +321,7 @@ public class MinesFinder extends javax.swing.JFrame {
         GameWindow gameWindow = new GameWindow(new Minefield(16, 30, 90), recordHard);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnHardActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -343,5 +375,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JPanel panelBtns;
     private javax.swing.JPanel panelRecords;
     private javax.swing.JLabel panelTitle;
+    private JButton btnExtreme;
+    private JButton btnGetInternetRank;
     // End of variables declaration//GEN-END:variables
 }
