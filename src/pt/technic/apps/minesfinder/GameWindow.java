@@ -8,7 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JOptionPane;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.*;
 import javax.swing.border.*;
 
 /**
@@ -20,16 +22,118 @@ public class GameWindow extends javax.swing.JFrame {
     private ButtonMinefield[][] buttons;
     private Minefield minefield;
     private RecordTable record;
+    private MinesFinder minesFinder = new MinesFinder();
 
     /**
      * Creates new form GameWindow
      */
     public GameWindow() {
         initComponents();
+        menubar();
+    }
+
+    private void menubar() {
+
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu tequipment = new JMenu("난이도선택");
+        JMenu help = new JMenu("도움말");
+        JMenu timeattack = new JMenu("타임어택");
+
+        GameWindowMenuAction listener = new GameWindowMenuAction();
+
+        tequipment.add(new JMenuItem("Easy")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Medium")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Hard")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Extreme")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Exit")).addActionListener(listener);
+
+        help.add(new JMenuItem("개발자")).addActionListener(listener);
+
+        timeattack.add(new JMenuItem("Easy 타임어택 60초")).addActionListener(listener);
+        timeattack.add(new JMenuItem("Medium 타임어택 90초")).addActionListener(listener);
+        timeattack.add(new JMenuItem("Hard 타임어택 120초")).addActionListener(listener);
+        timeattack.add(new JMenuItem("Extreme 타임어택 180초")).addActionListener(listener);
+
+        JLabel time = new JLabel("                           <경과시간>     :    ");
+        JLabel time2 = new JLabel();
+        JLabel minenum = new JLabel("        <지뢰수>    :    ");
+        JLabel minenum2 = new JLabel();
+        JLabel tmack = new JLabel("        <타임어택>    :    ");
+        JLabel tmack2 = new JLabel();
+
+        jMenuBar.add(tequipment);
+        jMenuBar.add(timeattack);
+        jMenuBar.add(help);
+
+        jMenuBar.add(time);
+        jMenuBar.add(time2);
+        jMenuBar.add(minenum);
+        jMenuBar.add(minenum2);
+        jMenuBar.add(tmack);
+        jMenuBar.add(tmack2);
+
+        setJMenuBar(jMenuBar);
+    }
+
+    class GameWindowMenuAction implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String cmd = evt.getActionCommand();
+
+            Timer timer = new Timer(true);
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(null, "Oh, Time Over!!!", "Time Attack!", JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                }
+            };
+
+            switch (cmd) {
+                case "Easy":
+                    setVisible(false);
+                    minesFinder.btnEasyActionPerformed(evt);
+                    break;
+                case "Medium":
+                    setVisible(false);
+                    minesFinder.btnMediumActionPerformed(evt);
+                    break;
+                case "Hard":
+                    setVisible(false);
+                    minesFinder.btnHardActionPerformed(evt);
+                    break;
+                case "Extreme":
+                    setVisible(false);
+                    minesFinder.btnExtremeActionPerfomed(evt);
+                case "Exit":
+                    setVisible(false);
+                    break;
+                case "개발자":
+                    DeveloperView developerView = new DeveloperView();
+                    developerView.show();
+                    break;
+                case "Easy 타임어택 60초":
+                    setVisible(false);
+                    minesFinder.btnEasyActionPerformed(evt);
+                    timer.schedule(timerTask, 60000);
+                case "Medium 타임어택 90초":
+                    setVisible(false);
+                    minesFinder.btnMediumActionPerformed(evt);
+                    timer.schedule(timerTask, 90000);
+                case "Hard 타임어택 120초":
+                    setVisible(false);
+                    minesFinder.btnHardActionPerformed(evt);
+                    timer.schedule(timerTask, 120000);
+                case "Extreme 타임어택 180초":
+                    setVisible(false);
+                    minesFinder.btnExtremeActionPerfomed(evt);
+                    timer.schedule(timerTask, 180000);
+            }
+        }
     }
 
     public GameWindow(Minefield minefield, RecordTable record) {
         initComponents();
+        menubar();
 
         this.minefield = minefield;
         this.record = record;
@@ -42,20 +146,29 @@ public class GameWindow extends javax.swing.JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // starting gun sound
+                BGM startBgm = new BGM("gun.mp3", false);
+                startBgm.start();
+
                 ButtonMinefield button = (ButtonMinefield) e.getSource();
+
                 int x = button.getCol();
                 int y = button.getLine();
                 minefield.revealGrid(x, y);
                 updateButtonsStates();
                 if (minefield.isGameFinished()) {
                     if (minefield.isPlayerDefeated()) {
-                        JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ",
-                                "실패", JOptionPane.INFORMATION_MESSAGE);
+                        // defeated sound
+                        BGM defeatBgm = new BGM("Defeat.mp3", false);
+                        defeatBgm.start();
+
+                        JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ", "실패", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 "
-                                + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.",
-                                "성공", JOptionPane.INFORMATION_MESSAGE
-                        );
+                        //victory sound
+                        BGM victoryBgm = new BGM("victory.mp3", false);
+                        victoryBgm.start();
+
+                        JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 " + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.", "성공", JOptionPane.INFORMATION_MESSAGE);
                         long a = minefield.getGameDuration();
                         long b = record.getScore();
                         boolean newRecord = minefield.getGameDuration() < record.getScore();

@@ -49,6 +49,7 @@ public class RankingWebView {
         webView.setMaxSize(1024, 768);
 
         WebEngine webEngine = webView.getEngine();
-        webEngine.load("https://www.whatismybrowser.com/");
+        //webEngine.load("https://www.whatismybrowser.com/");
+        webEngine.load("https://naver.com/");
     }
 }

@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -159,6 +161,7 @@ public class MinesFinder extends javax.swing.JFrame {
         btnGetInternetRank = new javax.swing.JButton();
         btnExtreme = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnTutorial = new javax.swing.JButton();
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -212,78 +215,96 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelExtremePoints.setText("9999");
 
+        btnGetInternetRank.setText("Show Internet Rank");
+        btnGetInternetRank.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnGetInternetRankActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRecordsLayout = new javax.swing.GroupLayout(panelRecords);
-        panelRecords.setLayout(panelRecordsLayout);
         panelRecordsLayout.setHorizontalGroup(
-            panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Records, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelRecordsLayout.createSequentialGroup()
-                .addContainerGap()
-                
-                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(Records, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+        		.addGroup(panelRecordsLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
 
-                    .addComponent(labelEasy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
-                    .addGroup(panelRecordsLayout.createSequentialGroup()
-                        .addComponent(labelEasyName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelEasyPoints))
-                    
-                    .addComponent(labelMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
-                    .addGroup(panelRecordsLayout.createSequentialGroup()
-                        .addComponent(labelMediumName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelMediumPoints))
-                    
-                    .addComponent(labelHard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
-                    .addGroup(panelRecordsLayout.createSequentialGroup()
-                        .addComponent(labelHardName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelHardPoints))
-                    
-                    .addComponent(labelExtreme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // component 자리 지키기
-                    .addGroup(panelRecordsLayout.createSequentialGroup()
-                    	.addComponent(labelExtremeName)
-                    	.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    	.addComponent(labelExtremePoints))
+        				.addComponent(labelEasy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelRecordsLayout.createSequentialGroup()
+        					.addComponent(labelEasyName)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(labelEasyPoints))
 
-                         )
-                .addContainerGap()
+        				.addComponent(labelMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelRecordsLayout.createSequentialGroup()
+        					.addComponent(labelMediumName)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(labelMediumPoints))
+
+        				.addComponent(labelHard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelRecordsLayout.createSequentialGroup()
+        					.addComponent(labelHardName)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(labelHardPoints))
+
+        				.addComponent(labelExtreme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelRecordsLayout.createSequentialGroup()
+        					.addComponent(labelExtremeName)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(labelExtremePoints))
+        				
+        				.addComponent(btnGetInternetRank, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(panelRecordsLayout.createSequentialGroup()
+            				.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        					
+        				)
+       			
+        			.addContainerGap()
         ));
         panelRecordsLayout.setVerticalGroup(
-            panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRecordsLayout.createSequentialGroup()
-                .addComponent(Records)
-                
-                .addGap(18, 18, 18)
-                .addComponent(labelEasy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelEasyPoints)
-                    .addComponent(labelEasyName))
-                
-                .addGap(18, 18, 18)
-                .addComponent(labelMedium)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMediumPoints)
-                    .addComponent(labelMediumName))
-                
-                .addGap(18, 18, 18)
-                .addComponent(labelHard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelHardPoints)
-                    .addComponent(labelHardName))
-                
-                .addGap(18, 18, 18)
-                .addComponent(labelExtreme)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelExtremePoints)
-                    .addComponent(labelExtremeName)) 
-                
-                .addGap(0, 169, Short.MAX_VALUE))
-        );
+        	panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panelRecordsLayout.createSequentialGroup()
+        			.addComponent(Records)
+
+        			.addGap(18, 18, 18)
+        			.addComponent(labelEasy)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(labelEasyPoints)
+        				.addComponent(labelEasyName))
+
+        			.addGap(18, 18, 18)
+        			.addComponent(labelMedium)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(labelMediumPoints)
+        				.addComponent(labelMediumName))
+
+        			.addGap(18, 18, 18)
+        			.addComponent(labelHard)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(labelHardPoints)
+        				.addComponent(labelHardName))
+
+        			.addGap(18, 18, 18)
+        			.addComponent(labelExtreme)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(labelExtremePoints)
+        				.addComponent(labelExtremeName))
+        			
+        			.addGap(18, 18, 18)
+        			.addComponent(btnGetInternetRank, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+
+
+        			.addPreferredGap(ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+
+        ));
+        panelRecords.setLayout(panelRecordsLayout);
 
         getContentPane().add(panelRecords, java.awt.BorderLayout.LINE_START);
 
@@ -328,14 +349,14 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnExtreme);
         
-        btnGetInternetRank.setText("Show Internet Ranking");
-        btnGetInternetRank.addActionListener(new java.awt.event.ActionListener() {
+        btnTutorial.setText("Play Tutorial");
+        btnTutorial.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGetInternetRankActionPerformed(evt);
+                btnTutorialActionPerformed(evt);
             }
         });
-        panelBtns.add(btnGetInternetRank);
+        panelBtns.add(btnTutorial);
         
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -351,31 +372,34 @@ public class MinesFinder extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGetInternetRankActionPerformed(java.awt.event.ActionEvent evt) {
-        // requirement rankingview
+    private void btnGetInternetRankActionPerformed(ActionEvent evt) {
         RankingWebView.getOpenRankingView();
     }
 
-    private void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
+    private void btnTutorialActionPerformed(java.awt.event.ActionEvent evt) {
+        return;
+    }
+
+    public void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
         GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 90), recordExtreme);
         gameWindow.setVisible(true);
     }
 
-    private void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
+    public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
         GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 10), recordEasy);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnEasyActionPerformed
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+    public void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
+    public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
         GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 30), recordMedium);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnMediumActionPerformed
 
-    private void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
+    public void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
         GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 60), recordHard);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnHardActionPerformed
@@ -389,6 +413,11 @@ public class MinesFinder extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+        // input starting bgm
+        BGM bgm = new BGM("bgm.mp3", true);
+        bgm.start();
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -423,6 +452,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JButton btnMedium;
     private javax.swing.JButton btnExtreme;
     private javax.swing.JButton btnGetInternetRank;
+    private javax.swing.JButton btnTutorial;
     private javax.swing.JLabel labelEasy;
     private javax.swing.JLabel labelEasyName;
     private javax.swing.JLabel labelEasyPoints;
@@ -438,5 +468,4 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JPanel panelBtns;
     private javax.swing.JPanel panelRecords;
     private javax.swing.JLabel panelTitle;
-    // End of variables declaration//GEN-END:variables
 }
