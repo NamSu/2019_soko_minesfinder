@@ -7,18 +7,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.concurrent.CountDownLatch;
 
 public class FireBase {
-    private static final String DATABASE_URL = "";
+    private static final String DATABASE_URL = "https://minesfinder-rank.firebaseio.com";
     private FirebaseDatabase firebaseDatabase;
 
     public FireBase() {
-        InputStream serviceAccount = this.getClass().getResourceAsStream("");
 
         try {
+            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "\\" + "minesfinder-rank-firebase.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl(DATABASE_URL)
@@ -29,10 +28,6 @@ public class FireBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void update(Object value) {
-        update(value);
     }
 
     public void update(Object value, String key) {

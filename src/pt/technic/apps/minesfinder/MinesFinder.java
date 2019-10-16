@@ -24,6 +24,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private RecordTable recordHard;
     private RecordTable recordExtreme;
 
+
     /**
      * Creates new form MinesFinder
      */
@@ -101,12 +102,16 @@ public class MinesFinder extends javax.swing.JFrame {
     private void saveGameRecords() {
         ObjectOutputStream oos = null;
         try {
-            File f = new File(System.getProperty("user.home") + File.separator + ".minesfinder.records");
+            FireBase fireBase = new FireBase();
+
+            File f = new File(System.getProperty("user.dir") + File.separator + ".minesfinder.records");
             oos = new ObjectOutputStream(new FileOutputStream(f));
             oos.writeObject(recordEasy);
             oos.writeObject(recordMedium);
             oos.writeObject(recordHard);
             oos.writeObject(recordExtreme);
+            fireBase.update(recordEasy.getScore() / 1000, recordEasy.getName());
+            fireBase.close();
             oos.close();
         } catch (IOException ex) {
             Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE, null,
@@ -116,7 +121,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
     private void readGameRecords() {
         ObjectInputStream ois = null;
-        File f = new File(System.getProperty("user.home") + File.separator + ".minesfinder.records");
+        File f = new File(System.getProperty("user.dir") + File.separator + ".minesfinder.records");
         if (f.canRead()) {
             try {
                 ois = new ObjectInputStream(new FileInputStream(f));
@@ -386,7 +391,7 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
-        GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 10), recordEasy);
+        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordEasy);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnEasyActionPerformed
 
@@ -415,8 +420,8 @@ public class MinesFinder extends javax.swing.JFrame {
          */
 
         // input starting bgm
-        BGM bgm = new BGM("bgm.mp3", true);
-        bgm.start();
+        //BGM bgm = new BGM("bgm.mp3", true);
+        //bgm.start();
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

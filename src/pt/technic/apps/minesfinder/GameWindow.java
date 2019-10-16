@@ -175,8 +175,9 @@ public class GameWindow extends javax.swing.JFrame {
 
                         if (newRecord) {
                             String name = JOptionPane.showInputDialog("이름을 입력하세요.");
-                            if(name != "")
+                            if(!name.equals("")) {
                                 record.setRecord(name, minefield.getGameDuration());
+                            }
                         }
                     }
                     setVisible(false);
