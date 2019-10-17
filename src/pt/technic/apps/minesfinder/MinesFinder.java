@@ -377,7 +377,7 @@ public class MinesFinder extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGetInternetRankActionPerformed(ActionEvent evt) {
+    private void btnGetInternetRankActionPerformed(java.awt.event.ActionEvent evt) {
         RankingWebView.getOpenRankingView();
     }
 
