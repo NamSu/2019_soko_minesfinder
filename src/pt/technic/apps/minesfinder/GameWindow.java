@@ -32,12 +32,40 @@ public class GameWindow extends javax.swing.JFrame {
         menubar();
     }
 
+    class TimerThread extends Thread {
+        JLabel timerLabel;
+
+        public TimerThread(JLabel timerLabel) {
+            this.timerLabel = timerLabel;
+        }
+
+        @Override
+        public void run() {
+            int countNum = 0;
+            while (true) {
+                timerLabel.setText(Integer.toString(countNum));
+                countNum++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public JLabel getTimerLabel() {
+            return timerLabel;
+        }
+    }
+
     private void menubar() {
 
         JMenuBar jMenuBar = new JMenuBar();
-        JMenu tequipment = new JMenu("난이도선택");
-        JMenu help = new JMenu("도움말");
-        JMenu timeattack = new JMenu("타임어택");
+        JMenu tequipment = new JMenu("   난이도 선택     ");
+        JMenu help = new JMenu("   도움말   ");
+        JMenu timeattack = new JMenu("   타임어택   ");
+        JLabel timerLabel = new JLabel();
+        TimerThread timer = new TimerThread(timerLabel);
 
         GameWindowMenuAction listener = new GameWindowMenuAction();
 
@@ -54,23 +82,17 @@ public class GameWindow extends javax.swing.JFrame {
         timeattack.add(new JMenuItem("Hard 타임어택 120초")).addActionListener(listener);
         timeattack.add(new JMenuItem("Extreme 타임어택 180초")).addActionListener(listener);
 
-        JLabel time = new JLabel("                           <경과시간>     :    ");
-        JLabel time2 = new JLabel();
-        JLabel minenum = new JLabel("        <지뢰수>    :    ");
         JLabel minenum2 = new JLabel();
-        JLabel tmack = new JLabel("        <타임어택>    :    ");
-        JLabel tmack2 = new JLabel();
+
+        timer.start();
 
         jMenuBar.add(tequipment);
         jMenuBar.add(timeattack);
         jMenuBar.add(help);
 
-        jMenuBar.add(time);
-        jMenuBar.add(time2);
-        jMenuBar.add(minenum);
-        jMenuBar.add(minenum2);
-        jMenuBar.add(tmack);
-        jMenuBar.add(tmack2);
+        jMenuBar.add(new JLabel("            경과시간     :    "));
+        jMenuBar.add(timerLabel);
+        jMenuBar.add(new JLabel("       남은 지뢰수     :    "));
 
         setJMenuBar(jMenuBar);
     }
@@ -83,7 +105,8 @@ public class GameWindow extends javax.swing.JFrame {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    JOptionPane.showMessageDialog(null, "Oh, Time Over!!!", "Time Attack!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Oh, Time Over!!!", "Time Attack!",
+                            JOptionPane.INFORMATION_MESSAGE);
                     setVisible(false);
                 }
             };
@@ -131,9 +154,12 @@ public class GameWindow extends javax.swing.JFrame {
         }
     }
 
+
+
     public GameWindow(Minefield minefield, RecordTable record) {
         initComponents();
         menubar();
+
 
         this.minefield = minefield;
         this.record = record;
@@ -146,6 +172,8 @@ public class GameWindow extends javax.swing.JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("actionperfomed start");
+
                 // starting gun sound
                 BGM startBgm = new BGM("gun.mp3", false);
                 startBgm.start();
@@ -260,7 +288,7 @@ public class GameWindow extends javax.swing.JFrame {
             public void keyReleased(KeyEvent ke) {
             }
         };*/
-        
+
         // Create buttons for the player
         for (int x = 0; x < minefield.getWidth(); x++) {
             for (int y = 0; y < minefield.getHeight(); y++) {
@@ -297,12 +325,12 @@ public class GameWindow extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE) // size-variables var
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1024, Short.MAX_VALUE) // size-variables var
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE) // size-variables var
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 768, Short.MAX_VALUE) // size-variables var
         );
 
         pack();

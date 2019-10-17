@@ -11,11 +11,10 @@ import java.io.*;
 import java.util.concurrent.CountDownLatch;
 
 public class FireBaseCtrl {
-    private static final String DATABASE_URL = "https://minesfinder-rank.firebaseio.com";
+    private static final String DATABASE_URL = "https://minesfinder-rank.firebaseio.com"; // don't change url
     private FirebaseDatabase firebaseDatabase;
 
     public FireBaseCtrl() {
-
         try {
             FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "\\" + "minesfinder-rank-firebase.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -32,7 +31,7 @@ public class FireBaseCtrl {
 
     public void update(Object value, String level, String key) {
         try {
-            DatabaseReference reference = firebaseDatabase.getReference(level).child(key);
+            DatabaseReference reference = firebaseDatabase.getReference(level).child(key); // ex. level(easy) -> key(name) + value(score)
             final CountDownLatch latch = new CountDownLatch(1);
             reference.setValue(value, new DatabaseReference.CompletionListener() {
                 @Override

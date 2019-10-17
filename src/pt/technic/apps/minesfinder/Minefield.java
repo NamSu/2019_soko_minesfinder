@@ -25,7 +25,7 @@ public class Minefield {
     private boolean firstPlay;
     private boolean playerDefeated;
     private boolean gameFinished;
-    
+
     private long timeGameStarted;
     private long timeGameDuration;
 
@@ -33,7 +33,7 @@ public class Minefield {
         if(numMines<=0){
             throw new IllegalArgumentException("지뢰의 개수는 0보다는 커야합니다.");
         }
-        
+
         this.width = width;
         this.height = height;
         this.numMines = numMines;
@@ -51,6 +51,7 @@ public class Minefield {
                 states[x][y] = COVERED;
             }
         }
+        System.out.println("mindefield ready");
     }
 
     public void revealGrid(int x, int y) {
@@ -75,7 +76,7 @@ public class Minefield {
             if (minesAround == 0) {
                 revealGridNeighbors(x, y);
             }
-            
+
             if(checkVictory()) {
                 gameFinished=true;
                 playerDefeated=false;
@@ -84,13 +85,13 @@ public class Minefield {
             }
         }
     }
-    
+
     public long getGameDuration(){
         if(firstPlay){
             return 0;
         }
         if(!gameFinished){
-            return System.currentTimeMillis()-timeGameStarted; 
+            return System.currentTimeMillis()-timeGameStarted;
         }
         return timeGameDuration;
     }
