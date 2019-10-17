@@ -23,6 +23,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private RecordTable recordMedium;
     private RecordTable recordHard;
     private RecordTable recordExtreme;
+    private RecordTable recordUserSetting;
 
 
     /**
@@ -34,17 +35,24 @@ public class MinesFinder extends javax.swing.JFrame {
         recordMedium = new RecordTable();
         recordHard = new RecordTable();
         recordExtreme = new RecordTable();
+        recordUserSetting = new RecordTable();
 
         readGameRecords();
 
         labelEasyName.setText(recordEasy.getName());
         labelEasyPoints.setText(Long.toString(recordEasy.getScore()/1000));
+
         labelMediumName.setText(recordMedium.getName());
         labelMediumPoints.setText(Long.toString(recordMedium.getScore()/1000));
+
         labelHardName.setText(recordHard.getName());
         labelHardPoints.setText(Long.toString(recordHard.getScore()/1000));
+
         labelExtremeName.setText(recordExtreme.getName());
         labelExtremePoints.setText(Long.toString(recordExtreme.getScore()/1000));
+
+        labelUserSettingName.setText(recordUserSetting.getName());
+        labelUserSettingPoints.setText(Long.toString(recordUserSetting.getScore()/1000));
 
         recordEasy.addRecordTableListener(new RecordTableListener() {
             @Override
@@ -71,6 +79,13 @@ public class MinesFinder extends javax.swing.JFrame {
             @Override
             public void recordUpdated(RecordTable record) {
                 recordExtremeUpdated(record);
+            }
+        });
+
+        recordUserSetting.addRecordTableListener(new RecordTableListener() {
+            @Override
+            public void recordUpdated(RecordTable record) {
+                recordUserSettingUpdated(record);
             }
         });
     }
@@ -111,6 +126,12 @@ public class MinesFinder extends javax.swing.JFrame {
         saveGameRecords();
     }
 
+    private void recordUserSettingUpdated(RecordTable record) {
+        labelUserSettingName.setText(record.getName());
+        labelUserSettingPoints.setText(Long.toString(record.getScore()/1000));
+        saveGameRecords();
+    }
+
     private void saveGameRecords() {
         ObjectOutputStream oos = null;
         try {
@@ -120,6 +141,7 @@ public class MinesFinder extends javax.swing.JFrame {
             oos.writeObject(recordMedium);
             oos.writeObject(recordHard);
             oos.writeObject(recordExtreme);
+            oos.writeObject(recordUserSetting);
             oos.close();
         } catch (IOException ex) {
             Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE, null,
@@ -137,6 +159,7 @@ public class MinesFinder extends javax.swing.JFrame {
                 recordMedium = (RecordTable) ois.readObject();
                 recordHard = (RecordTable) ois.readObject();
                 recordExtreme = (RecordTable) ois.readObject();
+                recordUserSetting = (RecordTable) ois.readObject();
                 ois.close();
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE,
@@ -167,12 +190,16 @@ public class MinesFinder extends javax.swing.JFrame {
         labelExtreme = new javax.swing.JLabel();
         labelExtremeName = new javax.swing.JLabel();
         labelExtremePoints = new javax.swing.JLabel();
+        labelUserSetting = new javax.swing.JLabel();
+        labelUserSettingName = new javax.swing.JLabel();
+        labelUserSettingPoints = new javax.swing.JLabel();
         panelBtns = new javax.swing.JPanel();
         btnEasy = new javax.swing.JButton();
         btnMedium = new javax.swing.JButton();
         btnHard = new javax.swing.JButton();
         btnGetInternetRank = new javax.swing.JButton();
         btnExtreme = new javax.swing.JButton();
+        btnuserSettingGame = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         btnTutorial = new javax.swing.JButton();
 
@@ -228,11 +255,27 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelExtremePoints.setText("9999");
 
+        labelUserSetting.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
+        labelUserSetting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUserSetting.setText("User Setting");
+
+        labelUserSettingName.setText("Player");
+
+        labelUserSettingPoints.setText("9999");
+
         btnGetInternetRank.setText("Show Internet Rank");
         btnGetInternetRank.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 btnGetInternetRankActionPerformed(evt);
+            }
+        });
+
+        btnuserSettingGame.setText("사용자 설정 게임");
+        btnuserSettingGame.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnTutorialActionPerformed(evt);
             }
         });
 
@@ -268,7 +311,17 @@ public class MinesFinder extends javax.swing.JFrame {
                                                 .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(labelExtremePoints))
 
+                                        .addComponent(labelUserSetting, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(panelRecordsLayout.createSequentialGroup()
+                                                .addComponent(labelUserSettingName)
+                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelUserSettingPoints))
+
                                         .addComponent(btnGetInternetRank, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(panelRecordsLayout.createSequentialGroup()
+                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
+                                        .addComponent(btnuserSettingGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(panelRecordsLayout.createSequentialGroup()
                                                 .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 
@@ -310,7 +363,18 @@ public class MinesFinder extends javax.swing.JFrame {
                                         .addComponent(labelExtremeName))
 
                                 .addGap(18, 18, 18)
+                                .addComponent(labelUserSetting)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(labelUserSettingPoints)
+                                        .addComponent(labelUserSettingName))
+
+                                .addGap(18, 18, 18)
                                 .addComponent(btnGetInternetRank, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+
+                                .addGap(18, 18, 18)
+                                .addComponent(btnuserSettingGame, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(ComponentPlacement.RELATED)
 
 
@@ -384,6 +448,27 @@ public class MinesFinder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void btnUserSettingGameActionPerfomed(java.awt.event.ActionEvent evt) {
+        JTextField width = new JTextField(5);
+        JTextField height = new JTextField(5);
+        JTextField minesNum = new JTextField(5);
+
+        JPanel userSettingGamePanel = new JPanel();
+        userSettingGamePanel.add(new JLabel("가로"));
+        userSettingGamePanel.add(width);
+        userSettingGamePanel.add(new JLabel("세로"));
+        userSettingGamePanel.add(height);
+        userSettingGamePanel.add(new JLabel("지뢰 수"));
+        userSettingGamePanel.add(minesNum);
+
+        int userPushBtn = JOptionPane.showConfirmDialog(null, userSettingGamePanel, "가로,세로,지뢰의 수를 입력하세요.", JOptionPane.OK_CANCEL_OPTION);
+
+        if (userPushBtn == JOptionPane.OK_OPTION) {
+            GameWindow gameWindow = new GameWindow(new Minefield(Integer.parseInt(width.getText()), Integer.parseInt(height.getText()), Integer.parseInt(minesNum.getText())), recordUserSetting);
+            gameWindow.setVisible(true);
+        }
+    }
 
     private void btnGetInternetRankActionPerformed(ActionEvent evt) {
         RankingWebView.getOpenRankingView();
@@ -468,6 +553,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JButton btnHard;
     private javax.swing.JButton btnMedium;
     private javax.swing.JButton btnExtreme;
+    private javax.swing.JButton btnuserSettingGame;
     private javax.swing.JButton btnGetInternetRank;
     private javax.swing.JButton btnTutorial;
     private javax.swing.JLabel labelEasy;
@@ -482,6 +568,9 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JLabel labelMedium;
     private javax.swing.JLabel labelMediumName;
     private javax.swing.JLabel labelMediumPoints;
+    private javax.swing.JLabel labelUserSetting;
+    private javax.swing.JLabel labelUserSettingName;
+    private javax.swing.JLabel labelUserSettingPoints;
     private javax.swing.JPanel panelBtns;
     private javax.swing.JPanel panelRecords;
     private javax.swing.JLabel panelTitle;

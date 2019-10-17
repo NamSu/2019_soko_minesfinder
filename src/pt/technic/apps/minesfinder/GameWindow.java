@@ -73,6 +73,7 @@ public class GameWindow extends javax.swing.JFrame {
         tequipment.add(new JMenuItem("Medium")).addActionListener(listener);
         tequipment.add(new JMenuItem("Hard")).addActionListener(listener);
         tequipment.add(new JMenuItem("Extreme")).addActionListener(listener);
+        tequipment.add(new JMenuItem("UserSetting")).addActionListener(listener);
         tequipment.add(new JMenuItem("Exit")).addActionListener(listener);
 
         help.add(new JMenuItem("개발자")).addActionListener(listener);
@@ -127,6 +128,11 @@ public class GameWindow extends javax.swing.JFrame {
                 case "Extreme":
                     setVisible(false);
                     minesFinder.btnExtremeActionPerfomed(evt);
+                    break;
+                case "UserSetting":
+                    setVisible(false);
+                    minesFinder.btnUserSettingGameActionPerfomed(evt);
+                    break;
                 case "Exit":
                     setVisible(false);
                     break;
@@ -138,18 +144,22 @@ public class GameWindow extends javax.swing.JFrame {
                     setVisible(false);
                     minesFinder.btnEasyActionPerformed(evt);
                     timer.schedule(timerTask, 60000);
+                    break;
                 case "Medium 타임어택 90초":
                     setVisible(false);
                     minesFinder.btnMediumActionPerformed(evt);
                     timer.schedule(timerTask, 90000);
+                    break;
                 case "Hard 타임어택 120초":
                     setVisible(false);
                     minesFinder.btnHardActionPerformed(evt);
                     timer.schedule(timerTask, 120000);
+                    break;
                 case "Extreme 타임어택 180초":
                     setVisible(false);
                     minesFinder.btnExtremeActionPerfomed(evt);
                     timer.schedule(timerTask, 180000);
+                    break;
             }
         }
     }

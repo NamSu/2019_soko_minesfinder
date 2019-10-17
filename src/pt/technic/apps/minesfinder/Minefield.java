@@ -63,7 +63,14 @@ public class Minefield {
             }
 
             if (mines[x][y]) {
-                states[x][y] = BUSTED;
+                for (int a = 0; a < mines[x].length; a++) { // makes mines show up
+                    for (int b = 0; b < mines[y].length; b++) {
+                        if (mines[a][b]) {
+                            states[a][b] = BUSTED;
+                        }
+                    }
+                }
+                //states[x][y] = BUSTED;
                 playerDefeated = true;
                 gameFinished = true;
                 timeGameDuration=System.currentTimeMillis()-timeGameStarted;
