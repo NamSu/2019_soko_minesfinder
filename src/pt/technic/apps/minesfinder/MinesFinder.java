@@ -78,40 +78,48 @@ public class MinesFinder extends javax.swing.JFrame {
     private void recordEasyUpdated(RecordTable record) {
         labelEasyName.setText(record.getName());
         labelEasyPoints.setText(Long.toString(record.getScore()/1000));
+        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
+        fireBaseCtrl.update(record.getScore() / 1000, "Easy", record.getName());
+        fireBaseCtrl.close();
         saveGameRecords();
     }
 
     private void recordMediumUpdated(RecordTable record) {
         labelMediumName.setText(record.getName());
         labelMediumPoints.setText(Long.toString(record.getScore()/1000));
+        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
+        fireBaseCtrl.update(record.getScore() / 1000, "Medium", record.getName());
+        fireBaseCtrl.close();
         saveGameRecords();
     }
 
     private void recordHardUpdated(RecordTable record) {
         labelHardName.setText(record.getName());
         labelHardPoints.setText(Long.toString(record.getScore()/1000));
+        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
+        fireBaseCtrl.update(record.getScore() / 1000, "Hard", record.getName());
+        fireBaseCtrl.close();
         saveGameRecords();
     }
 
     private void recordExtremeUpdated(RecordTable record) {
         labelExtremeName.setText(record.getName());
         labelExtremePoints.setText(Long.toString(record.getScore()/1000));
+        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
+        fireBaseCtrl.update(record.getScore() / 1000, "Extreme", record.getName());
+        fireBaseCtrl.close();
         saveGameRecords();
     }
 
     private void saveGameRecords() {
         ObjectOutputStream oos = null;
         try {
-            FireBase fireBase = new FireBase();
-
             File f = new File(System.getProperty("user.dir") + File.separator + ".minesfinder.records");
             oos = new ObjectOutputStream(new FileOutputStream(f));
             oos.writeObject(recordEasy);
             oos.writeObject(recordMedium);
             oos.writeObject(recordHard);
             oos.writeObject(recordExtreme);
-            fireBase.update(recordEasy.getScore() / 1000, recordEasy.getName());
-            fireBase.close();
             oos.close();
         } catch (IOException ex) {
             Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE, null,
@@ -391,7 +399,7 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
-        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordEasy);
+        GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 20), recordEasy);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnEasyActionPerformed
 
@@ -400,7 +408,7 @@ public class MinesFinder extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
-        GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 30), recordMedium);
+        GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 40), recordMedium);
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnMediumActionPerformed
 
