@@ -211,6 +211,8 @@ public class GameWindow extends javax.swing.JFrame {
                         long b = record.getScore();
                         boolean newRecord = minefield.getGameDuration() < record.getScore();
 
+                        victoryBgm.stop();
+
                         if (newRecord) {
                             String name = JOptionPane.showInputDialog("이름을 입력하세요.");
                             if(!name.equals("")) {
@@ -218,6 +220,7 @@ public class GameWindow extends javax.swing.JFrame {
                             }
                         }
                     }
+                    MinesFinder.bgm.resume();
                     setVisible(false);
                 }
             }

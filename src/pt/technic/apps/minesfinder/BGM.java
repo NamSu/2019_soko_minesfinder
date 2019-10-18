@@ -41,4 +41,8 @@ public class BGM extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void close() {
+        player.close();
+    }
 }
