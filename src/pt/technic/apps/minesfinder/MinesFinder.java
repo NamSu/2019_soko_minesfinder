@@ -220,7 +220,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         panelRecords.setBackground(new java.awt.Color(176, 133, 245));
 
-        Records.setFont(new java.awt.Font("Sans Serif", 1, 18)); // NOI18N
+        Records.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
         Records.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Records.setText("Internal Records");
 
@@ -276,7 +276,7 @@ public class MinesFinder extends javax.swing.JFrame {
         btnuserSettingGame.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                btnTutorialActionPerformed(evt);
+                btnUserSettingGameActionPerfomed(evt);
             }
         });
 
@@ -477,19 +477,19 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     private void btnTutorialActionPerformed(java.awt.event.ActionEvent evt) {
-        return;
+        TutorialView tutorialView = new TutorialView();
     }
 
     public void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 90), recordExtreme);
+        //GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 60), recordExtreme);
         GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordExtreme); // test mode
         gameWindow.setVisible(true);
     }
 
     public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 20), recordEasy);
+        //GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 8), recordEasy);
         GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordEasy); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnEasyActionPerformed
@@ -500,14 +500,14 @@ public class MinesFinder extends javax.swing.JFrame {
 
     public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 40), recordMedium);
+        //GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
         GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordMedium); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnMediumActionPerformed
 
     public void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 60), recordHard);
+        //GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 36), recordHard);
         GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordHard); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnHardActionPerformed
@@ -523,7 +523,7 @@ public class MinesFinder extends javax.swing.JFrame {
          */
 
         // input starting bgm
-        bgm.start();
+        //bgm.start();
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

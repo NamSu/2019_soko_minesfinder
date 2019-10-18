@@ -29,7 +29,7 @@ public class GameWindow extends javax.swing.JFrame {
      */
     public GameWindow() {
         initComponents();
-        menubar();
+        //menubar();
     }
 
     class TimerThread extends Thread {
@@ -63,7 +63,6 @@ public class GameWindow extends javax.swing.JFrame {
         JMenuBar jMenuBar = new JMenuBar();
         JMenu tequipment = new JMenu("   난이도 선택     ");
         JMenu help = new JMenu("   도움말   ");
-        JMenu timeattack = new JMenu("   타임어택   ");
         JLabel timerLabel = new JLabel();
         TimerThread timer = new TimerThread(timerLabel);
 
@@ -78,17 +77,9 @@ public class GameWindow extends javax.swing.JFrame {
 
         help.add(new JMenuItem("개발자")).addActionListener(listener);
 
-        timeattack.add(new JMenuItem("Easy 타임어택 60초")).addActionListener(listener);
-        timeattack.add(new JMenuItem("Medium 타임어택 90초")).addActionListener(listener);
-        timeattack.add(new JMenuItem("Hard 타임어택 120초")).addActionListener(listener);
-        timeattack.add(new JMenuItem("Extreme 타임어택 180초")).addActionListener(listener);
-
-        JLabel minenum2 = new JLabel();
-
         timer.start();
 
         jMenuBar.add(tequipment);
-        jMenuBar.add(timeattack);
         jMenuBar.add(help);
 
         jMenuBar.add(new JLabel("            경과시간     :    "));
@@ -140,26 +131,6 @@ public class GameWindow extends javax.swing.JFrame {
                     DeveloperView developerView = new DeveloperView();
                     developerView.show();
                     break;
-                case "Easy 타임어택 60초":
-                    setVisible(false);
-                    minesFinder.btnEasyActionPerformed(evt);
-                    timer.schedule(timerTask, 60000);
-                    break;
-                case "Medium 타임어택 90초":
-                    setVisible(false);
-                    minesFinder.btnMediumActionPerformed(evt);
-                    timer.schedule(timerTask, 90000);
-                    break;
-                case "Hard 타임어택 120초":
-                    setVisible(false);
-                    minesFinder.btnHardActionPerformed(evt);
-                    timer.schedule(timerTask, 120000);
-                    break;
-                case "Extreme 타임어택 180초":
-                    setVisible(false);
-                    minesFinder.btnExtremeActionPerfomed(evt);
-                    timer.schedule(timerTask, 180000);
-                    break;
             }
         }
     }
@@ -201,6 +172,7 @@ public class GameWindow extends javax.swing.JFrame {
                         defeatBgm.start();
 
                         JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ", "실패", JOptionPane.INFORMATION_MESSAGE);
+                        defeatBgm.stop();
                     } else {
                         //victory sound
                         BGM victoryBgm = new BGM("victory.mp3", false);
