@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public class RecordTable implements Serializable {
 

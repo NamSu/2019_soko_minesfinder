@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
+ */
 public class DeveloperView extends JDialog{
     public DeveloperView() {
         setTitle("Developer");

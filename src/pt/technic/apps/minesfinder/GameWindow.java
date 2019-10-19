@@ -15,7 +15,8 @@ import javax.swing.border.*;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public class GameWindow extends javax.swing.JFrame {
 
@@ -24,12 +25,14 @@ public class GameWindow extends javax.swing.JFrame {
     private RecordTable record;
     private MinesFinder minesFinder = new MinesFinder();
 
+    private int swingMineNum;
+    JLabel showMineNum = new JLabel(Integer.toString(swingMineNum));
+
     /**
      * Creates new form GameWindow
      */
     public GameWindow() {
         initComponents();
-        //menubar();
     }
 
     class TimerThread extends Thread {
@@ -85,6 +88,7 @@ public class GameWindow extends javax.swing.JFrame {
         jMenuBar.add(new JLabel("            경과시간     :    "));
         jMenuBar.add(timerLabel);
         jMenuBar.add(new JLabel("       남은 지뢰수     :    "));
+        jMenuBar.add(showMineNum);
 
         setJMenuBar(jMenuBar);
     }
@@ -92,16 +96,6 @@ public class GameWindow extends javax.swing.JFrame {
     class GameWindowMenuAction implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             String cmd = evt.getActionCommand();
-
-            Timer timer = new Timer(true);
-            TimerTask timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    JOptionPane.showMessageDialog(null, "Oh, Time Over!!!", "Time Attack!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    setVisible(false);
-                }
-            };
 
             switch (cmd) {
                 case "Easy":
@@ -144,6 +138,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         this.minefield = minefield;
         this.record = record;
+        swingMineNum = minefield.getNumMines();
 
         buttons = new ButtonMinefield[minefield.getWidth()][minefield.getHeight()];
 
@@ -153,8 +148,6 @@ public class GameWindow extends javax.swing.JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("actionperfomed start");
-
                 // starting gun sound
                 BGM startBgm = new BGM("gun.mp3", false);
                 startBgm.start();
@@ -173,6 +166,7 @@ public class GameWindow extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ", "실패", JOptionPane.INFORMATION_MESSAGE);
                         defeatBgm.stop();
+
                     } else {
                         //victory sound
                         BGM victoryBgm = new BGM("victory.mp3", false);
@@ -207,12 +201,16 @@ public class GameWindow extends javax.swing.JFrame {
                     int y = botao.getLine();
                     if (minefield.getGridState(x, y) == minefield.COVERED) {
                         minefield.setMineMarked(x, y);
-                    } else if (minefield.getGridState(x,
-                            y) == minefield.MARKED) {
+
+                        --swingMineNum;
+                        showMineNum.setText(Integer.toString(swingMineNum));
+                    } else if (minefield.getGridState(x, y) == minefield.MARKED) {
                         minefield.setMineQuestion(x, y);
-                    } else if (minefield.getGridState(x,
-                            y) == minefield.QUESTION) {
+                    } else if (minefield.getGridState(x, y) == minefield.QUESTION) {
                         minefield.setMineCovered(x, y);
+
+                        ++swingMineNum;
+                        showMineNum.setText(Integer.toString(swingMineNum));
                     }
                     updateButtonsStates();
                 }
@@ -235,12 +233,12 @@ public class GameWindow extends javax.swing.JFrame {
             }
         };
 
-/*        KeyListener keyListener = new KeyListener() {
+        KeyListener keyListener = new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 ButtonMinefield botao = (ButtonMinefield) e.getSource();
-                int x = botao.getWidth();
-                int y = botao.getHeight();
+                int x = botao.getCol();
+                int y = botao.getLine();
                 if (e.getKeyCode() == KeyEvent.VK_UP && y > 0) {
                     buttons[x][y - 1].requestFocus();
                 } else if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
@@ -254,12 +252,16 @@ public class GameWindow extends javax.swing.JFrame {
                 } else if (e.getKeyCode() == KeyEvent.VK_M) {
                     if (minefield.getGridState(x, y) == minefield.COVERED) {
                         minefield.setMineMarked(x, y);
-                    } else if (minefield.getGridState(x,
-                            y) == minefield.MARKED) {
+
+                        --swingMineNum;
+                        showMineNum.setText(Integer.toString(swingMineNum));
+                    } else if (minefield.getGridState(x, y) == minefield.MARKED) {
                         minefield.setMineQuestion(x, y);
-                    } else if (minefield.getGridState(x,
-                            y) == minefield.QUESTION) {
+                    } else if (minefield.getGridState(x, y) == minefield.QUESTION) {
                         minefield.setMineCovered(x, y);
+
+                        ++swingMineNum;
+                        showMineNum.setText(Integer.toString(swingMineNum));
                     }
                     updateButtonsStates();
                 }
@@ -272,7 +274,7 @@ public class GameWindow extends javax.swing.JFrame {
             @Override
             public void keyReleased(KeyEvent ke) {
             }
-        };*/
+        };
 
         // Create buttons for the player
         for (int x = 0; x < minefield.getWidth(); x++) {
@@ -280,7 +282,7 @@ public class GameWindow extends javax.swing.JFrame {
                 buttons[x][y] = new ButtonMinefield(x, y);
                 buttons[x][y].addActionListener(action);
                 buttons[x][y].addMouseListener(mouseListener);
-                //buttons[x][y].addKeyListener(keyListener); // does not use keyListner
+                buttons[x][y].addKeyListener(keyListener); // does not use keyListner
                 getContentPane().add(buttons[x][y]);
             }
         }

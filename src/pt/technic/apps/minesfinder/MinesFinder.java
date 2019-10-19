@@ -15,7 +15,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public class MinesFinder extends javax.swing.JFrame {
 
@@ -388,8 +389,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         panelBtns.setLayout(new java.awt.GridLayout(2, 0));
 
-        //btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/easy.png"))); // NOI18N
-        btnEasy.setText("Easy");
+        btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/easy.png"))); // NOI18N
         btnEasy.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,8 +398,8 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnEasy);
 
-        //btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/medium.png"))); // NOI18N
-        btnMedium.setText("Medium");
+        btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/medium.png"))); // NOI18N
+        //btnMedium.setText("Medium");
         btnMedium.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,8 +408,8 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnMedium);
 
-        //btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/hard.png"))); // NOI18N
-        btnHard.setText("Hard");
+        btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/hard.png"))); // NOI18N
+        //btnHard.setText("Hard");
         btnHard.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +418,8 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnHard);
 
-        btnExtreme.setText("Extreme");
+        btnExtreme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/extreme.png"))); // NOI18N
+        //btnExtreme.setText("Extreme");
         btnExtreme.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,7 +428,8 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnExtreme);
 
-        btnTutorial.setText("Play Tutorial");
+        btnTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/tutorial.png"))); // NOI18N
+        //btnTutorial.setText("Play Tutorial");
         btnTutorial.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,12 +470,13 @@ public class MinesFinder extends javax.swing.JFrame {
         if (userPushBtn == JOptionPane.OK_OPTION) {
             bgm.suspend();
             GameWindow gameWindow = new GameWindow(new Minefield(Integer.parseInt(width.getText()), Integer.parseInt(height.getText()), Integer.parseInt(minesNum.getText())), recordUserSetting);
+            setMinesTheme();
             gameWindow.setVisible(true);
         }
     }
 
     private void btnGetInternetRankActionPerformed(ActionEvent evt) {
-        RankingWebView.getOpenRankingView();
+        RankingWebView rankingWebView = new RankingWebView();
     }
 
     private void btnTutorialActionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,16 +484,20 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     public void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
+        GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 60), recordExtreme);
+        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordExtreme); // test mode
+        setMinesTheme();
+
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 60), recordExtreme);
-        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordExtreme); // test mode
         gameWindow.setVisible(true);
     }
 
     public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
+        GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 8), recordEasy);
+        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordEasy); // test mode
+        setMinesTheme();
+
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 8), recordEasy);
-        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordEasy); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnEasyActionPerformed
 
@@ -499,18 +506,36 @@ public class MinesFinder extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
+        GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
+        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordMedium); // test mode
+        setMinesTheme();
+
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
-        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordMedium); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnMediumActionPerformed
 
     public void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
+        GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 36), recordHard);
+        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordHard); // test mode
+        setMinesTheme();
+
         bgm.suspend();
-        //GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 36), recordHard);
-        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordHard); // test mode
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnHardActionPerformed
+
+    private void setMinesTheme() {
+        String[] answer = {"지뢰", "꽃"};
+        int userAnswer = JOptionPane.showOptionDialog(null, "지뢰 모양을 선택하세요.", "지뢰 모양 선택",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, answer, answer[0]);
+
+        if (userAnswer == 0) {
+            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/mines.png");
+        } else if (userAnswer == 1) {
+            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/flower.png");
+        } else {
+            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/mines.png");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -523,7 +548,7 @@ public class MinesFinder extends javax.swing.JFrame {
          */
 
         // input starting bgm
-        //bgm.start();
+        bgm.start();
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

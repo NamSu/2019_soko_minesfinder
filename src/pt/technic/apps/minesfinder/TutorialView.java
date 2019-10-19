@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
+/**
+ *
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
+ */
 public class TutorialView {
     public TutorialView() {
         initialViewer();

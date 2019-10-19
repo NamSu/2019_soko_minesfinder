@@ -1,55 +1,27 @@
 package pt.technic.apps.minesfinder;
 
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+/**
+ *
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
+ */
 public class RankingWebView {
-    public static void getOpenRankingView() {
-        JFrame frame = new JFrame("Show Internet Ranking");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    public RankingWebView() { // not work internet explorer.
+        try {
+            JOptionPane.showMessageDialog(null, "인터넷 익스플로어에서는 작동하지 않습니다.", "Show Internet Rank", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "만약 인터넷 익스플로어에서 뜨면, 크롬에서 링크를 실행해주세요.", "Show Internet Rank", JOptionPane.INFORMATION_MESSAGE);
 
-        frame.getContentPane().setLayout(null);
-
-        final JFXPanel jfxPanel = new JFXPanel();
-
-        // to make visible viewpage true
-        frame.add(jfxPanel);
-        frame.setVisible(true);
-        // have problem in jfxpanel. is resized GameWindow panels.
-        jfxPanel.setSize(1024, 768);
-
-        frame.getContentPane().setPreferredSize(new Dimension(1024, 768));
-        frame.pack();
-        frame.setResizable(false);
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                setLoadRankingView(jfxPanel);
-            }
-        });
-    }
-
-    private static void setLoadRankingView(final JFXPanel jfxPanel) {
-        Group group = new Group();
-        Scene scene = new Scene(group);
-        jfxPanel.setScene(scene);
-
-        WebView webView = new WebView();
-
-        group.getChildren().add(webView);
-        webView.setMinSize(1024, 768);
-        webView.setMaxSize(1024, 768);
-
-        WebEngine webEngine = webView.getEngine();
-        //webEngine.load("https://minesfinder-rank.web.app");
-        webEngine.load("http://getbootstrap.com");
+            Desktop.getDesktop().browse(new URI("https://minesfinder-rank.firebaseapp.com"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

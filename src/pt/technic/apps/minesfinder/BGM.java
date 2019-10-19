@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ *
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
+ */
 public class BGM extends Thread {
     private Player player;
     private boolean isLoop;

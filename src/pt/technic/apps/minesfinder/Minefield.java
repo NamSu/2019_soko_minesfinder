@@ -4,7 +4,8 @@ import java.util.Random;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public class Minefield {
 
@@ -51,7 +52,6 @@ public class Minefield {
                 states[x][y] = COVERED;
             }
         }
-        System.out.println("mindefield ready");
     }
 
     public void revealGrid(int x, int y) {

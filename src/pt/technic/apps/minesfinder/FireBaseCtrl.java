@@ -10,6 +10,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.*;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ *
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
+ */
 public class FireBaseCtrl {
     private static final String DATABASE_URL = "https://minesfinder-rank.firebaseio.com"; // don't change url
     private FirebaseDatabase firebaseDatabase;
@@ -29,22 +34,39 @@ public class FireBaseCtrl {
         }
     }
 
-    public void update(Object value, String level, String key) {
+    public void update(Object value, String level, String name) {
+        long unixTime = System.currentTimeMillis() / 1000;
         try {
-            DatabaseReference reference = firebaseDatabase.getReference(level).child(key); // ex. level(easy) -> key(name) + value(score)
+            DatabaseReference scoreReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("score"); // ex. level(easy) -> score + "value"
+            DatabaseReference nameReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("name"); // ex. level(easy) -> name + "name"
             final CountDownLatch latch = new CountDownLatch(1);
-            reference.setValue(value, new DatabaseReference.CompletionListener() {
+
+            nameReference.setValue(name, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        System.out.println("data not saved.");
+                        System.out.println("name data not saved.");
                         latch.countDown();
                     } else {
-                        System.out.println("data saved");
+                        System.out.println("name data saved");
                         latch.countDown();
                     }
                 }
             });
+
+            scoreReference.setValue(value, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        System.out.println("score data not saved.");
+                        latch.countDown();
+                    } else {
+                        System.out.println("score data saved");
+                        latch.countDown();
+                    }
+                }
+            });
+
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();

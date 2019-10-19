@@ -2,7 +2,8 @@ package pt.technic.apps.minesfinder;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public interface RecordTableListener {
     public void recordUpdated(RecordTable record);

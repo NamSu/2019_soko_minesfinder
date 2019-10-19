@@ -1,14 +1,25 @@
 package pt.technic.apps.minesfinder;
 
 import java.awt.Color;
-import javax.swing.JButton;
+import java.io.IOException;
+import javax.swing.*;
 
 /**
  *
- * @author Gabriel Massadas
+ * create NamYounSu, LeeJeongHun, JeongWu
+ *
  */
 public class ButtonMinefield extends JButton {
+    private static String imageValue;
     private int state, col, line;
+
+    public static void setMineImage(String value) {
+        try {
+            imageValue = value;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ButtonMinefield(int col, int line) {
         this.col = col;
@@ -20,23 +31,23 @@ public class ButtonMinefield extends JButton {
         this.state=state;
         switch (state) {
             case Minefield.EMPTY:
-                setText("");
+                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/empty.png")));
                 setBackground(Color.gray);
                 break;
             case Minefield.COVERED:
-                setText("");
+                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/empty.png")));
                 setBackground(null);
                 break;
             case Minefield.QUESTION:
-                setText("?");
+                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/question.png")));
                 setBackground(Color.yellow);
                 break;
             case Minefield.MARKED:
-                setText("V");
+                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/mark.png")));
                 setBackground(Color.orange);
                 break;
             case Minefield.BUSTED:
-                setText("*");
+                setIcon(new ImageIcon(getClass().getResource(imageValue)));
                 setBackground(Color.red);
                 break;
             default:
@@ -44,6 +55,8 @@ public class ButtonMinefield extends JButton {
                 setBackground(Color.white);
                 break;
         }
+
+
     }
 
     public int getState() {
