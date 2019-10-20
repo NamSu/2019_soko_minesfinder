@@ -484,12 +484,16 @@ public class MinesFinder extends javax.swing.JFrame {
     }
 
     public void btnExtremeActionPerfomed(java.awt.event.ActionEvent evt) {
-        GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 60), recordExtreme);
-        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordExtreme); // test mode
-        setMinesTheme();
+        if (isExtremePlay()) {
+            GameWindow gameWindow = new GameWindow(new Minefield(14, 14, 60), recordExtreme);
+            //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordExtreme); // test mode
+            setMinesTheme();
 
-        bgm.suspend();
-        gameWindow.setVisible(true);
+            bgm.suspend();
+            gameWindow.setVisible(true);
+        } else {
+            return;
+        }
     }
 
     public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
@@ -506,8 +510,8 @@ public class MinesFinder extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
-        GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
-        //GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordMedium); // test mode
+        //GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
+        GameWindow gameWindow = new GameWindow(new Minefield(2, 2, 1), recordMedium); // test mode
         setMinesTheme();
 
         bgm.suspend();
@@ -522,6 +526,11 @@ public class MinesFinder extends javax.swing.JFrame {
         bgm.suspend();
         gameWindow.setVisible(true);
     }//GEN-LAST:event_btnHardActionPerformed
+
+    private boolean isExtremePlay() {
+        File f = new File(System.getProperty("user.dir") + File.separator + ".minesfinder.records");
+        return f.canRead();
+    }
 
     private void setMinesTheme() {
         String[] answer = {"지뢰", "꽃"};
