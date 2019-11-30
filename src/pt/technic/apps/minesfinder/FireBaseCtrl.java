@@ -9,6 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,10 +47,10 @@ public class FireBaseCtrl {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        System.out.println("name data not saved.");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data not saved.");
                         latch.countDown();
                     } else {
-                        System.out.println("name data saved");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data saved.");
                         latch.countDown();
                     }
                 }
@@ -58,10 +60,10 @@ public class FireBaseCtrl {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        System.out.println("score data not saved.");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data not saved.");
                         latch.countDown();
                     } else {
-                        System.out.println("score data saved");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data saved.");
                         latch.countDown();
                     }
                 }
@@ -69,7 +71,8 @@ public class FireBaseCtrl {
 
             latch.await();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.WARNING, "interrupted!");
+            Thread.currentThread().interrupt();
         }
     }
 

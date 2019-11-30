@@ -3,6 +3,8 @@ package pt.technic.apps.minesfinder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +33,7 @@ public class TutorialView {
         try {
             robot = new Robot();
         } catch (AWTException e) {
-            e.printStackTrace();
+            Logger.getLogger(TutorialView.class.getName()).log(Level.SEVERE, null, e);
         }
 
         JOptionPane.showMessageDialog(null, "게임창이 뜨면 움직이지 마시고 확인을 눌러주세요.",

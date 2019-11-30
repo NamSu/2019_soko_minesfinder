@@ -98,6 +98,8 @@ public class GameWindow extends javax.swing.JFrame {
             String cmd = evt.getActionCommand();
 
             switch (cmd) {
+                default:
+                    break;
                 case "Easy":
                     setVisible(false);
                     minesFinder.btnEasyActionPerformed(evt);

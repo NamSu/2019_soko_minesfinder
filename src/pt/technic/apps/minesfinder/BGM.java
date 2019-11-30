@@ -7,6 +7,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,10 +31,11 @@ public class BGM extends Thread {
             player = new Player(bufferedInputStream);
 
         } catch (FileNotFoundException | JavaLayerException e) {
-            e.printStackTrace();
+            Logger.getLogger(BGM.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
+    @Override
     public void run() {
         try {
             do {
@@ -43,7 +46,7 @@ public class BGM extends Thread {
             } while (isLoop);
 
         } catch (JavaLayerException | FileNotFoundException e) {
-            e.printStackTrace();
+            Logger.getLogger(BGM.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
