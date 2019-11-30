@@ -25,7 +25,7 @@ public class BGM extends Thread {
     public BGM(String name, boolean isLoop) {
         try {
             this.isLoop = isLoop;
-            file = new File(System.getProperty("user.dir") + "\\mp3\\" + name);
+            file = new File(System.getProperty("user.dir") + "/src/pt/technic/apps/minesfinder/resources/mp3/" + name);
             fileInputStream = new FileInputStream(file);
             bufferedInputStream = new BufferedInputStream(fileInputStream);
             player = new Player(bufferedInputStream);
