@@ -174,17 +174,24 @@ public class GameWindow extends javax.swing.JFrame {
                         BGM victoryBgm = new BGM("victory.mp3", false);
                         victoryBgm.start();
 
-                        JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 " + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.", "성공", JOptionPane.INFORMATION_MESSAGE);
-                        long a = minefield.getGameDuration();
-                        long b = record.getScore();
-                        boolean newRecord = minefield.getGameDuration() < record.getScore();
+                        if (minesFinder.isChallengeModeSwitch) {
+                            minesFinder.ChallengeLength += 2;
 
-                        victoryBgm.stop();
+                            victoryBgm.stop();
+                            minesFinder.ChallengeActionPerformed();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 " + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                            long a = minefield.getGameDuration();
+                            long b = record.getScore();
+                            boolean newRecord = minefield.getGameDuration() < record.getScore();
 
-                        if (newRecord) {
-                            String name = JOptionPane.showInputDialog("이름을 입력하세요.");
-                            if(!name.equals("")) {
-                                record.setRecord(name, minefield.getGameDuration());
+                            victoryBgm.stop();
+
+                            if (newRecord) {
+                                String name = JOptionPane.showInputDialog("이름을 입력하세요.");
+                                if(!name.equals("")) {
+                                    record.setRecord(name, minefield.getGameDuration());
+                                }
                             }
                         }
                     }
