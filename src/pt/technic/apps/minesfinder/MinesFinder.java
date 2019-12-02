@@ -34,7 +34,7 @@ public class MinesFinder extends javax.swing.JFrame {
     private int ChallengeLengthSet = ChallengeLength * ChallengeLength;
     private int ChallengeMineNum = ChallengeLengthSet / 4;
 
-    public static BGM bgm = new BGM("bgm.mp2", true);
+    public static BGM bgm = new BGM("bgm.mp3", true);
 
     /**
      * Creates new form MinesFinder
