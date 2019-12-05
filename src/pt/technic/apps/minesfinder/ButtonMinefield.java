@@ -50,10 +50,6 @@ public class ButtonMinefield extends JButton {
                 setIcon(new ImageIcon(getClass().getResource(imageValue)));
                 setBackground(Color.red);
                 break;
-            case Minefield.ORONAMINC:
-                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/mark.png")));
-                setBackground(Color.CYAN);
-                break;
             default:
                 setText(String.valueOf(state));
                 setBackground(Color.white);

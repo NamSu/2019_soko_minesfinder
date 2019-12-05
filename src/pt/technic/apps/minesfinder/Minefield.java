@@ -15,10 +15,9 @@ public class Minefield {
     public static final int QUESTION = 10;
     public static final int MARKED = 11;
     public static final int BUSTED = 12;
-    public static final int ORONAMINC= 13;
+    public static final int HINT = 13;
 
-    private boolean[][] mines;
-    private boolean[][] oronaminc; // set portion by oro-na-min-c
+    public boolean[][] mines;
     private int[][] states;
     private int width;
     private int height;
@@ -31,9 +30,6 @@ public class Minefield {
 
     private long timeGameStarted;
     private long timeGameDuration;
-
-    private int numOronaminc;
-    private int numLife;
 
     public Minefield(int width, int height, int numMines) {
         if(numMines<=0){
@@ -52,9 +48,6 @@ public class Minefield {
         playerDefeated = false;
         gameFinished = false;
 
-        numOronaminc = 3;
-        numLife = 10;
-
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 states[x][y] = COVERED;
@@ -67,7 +60,6 @@ public class Minefield {
             if (firstPlay) {
                 firstPlay = false;
                 placeMines(x, y);
-                placeOronaminc(x, y); // set oro-na-min-c state
                 timeGameStarted=System.currentTimeMillis();
             }
 
@@ -121,8 +113,6 @@ public class Minefield {
     }
 
     public void setMineMarked(int x, int y) {
-        if ()
-
         if (states[x][y] == COVERED || states[x][y] == QUESTION) {
             states[x][y] = MARKED;
         }
@@ -185,18 +175,6 @@ public class Minefield {
         }
     }
 
-    private void placeOronaminc(int plX, int plY) {
-        for (int i = 0; i < numOronaminc; i++) {
-            int x = 0;
-            int y = 0;
-            do {
-                x = random.nextInt(width);
-                y = random.nextInt(height);
-            } while (mines[x][y] || oronaminc[x][y]);
-            oronaminc[x][y] = true;
-        }
-    }
-
     public int getGridState(int x, int y) {
         return states[x][y];
     }
@@ -217,11 +195,4 @@ public class Minefield {
         return numMines;
     }
 
-    public int getNumLife() {
-        return numLife;
-    }
-
-    public int getNumOronaminc() {
-        return numOronaminc;
-    }
 }

@@ -76,6 +76,7 @@ public class GameWindow extends javax.swing.JFrame {
         tequipment.add(new JMenuItem("Hard")).addActionListener(listener);
         tequipment.add(new JMenuItem("Extreme")).addActionListener(listener);
         tequipment.add(new JMenuItem("UserSetting")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Hint")).addActionListener(listener);
         tequipment.add(new JMenuItem("Exit")).addActionListener(listener);
 
         help.add(new JMenuItem("개발자")).addActionListener(listener);
@@ -120,6 +121,9 @@ public class GameWindow extends javax.swing.JFrame {
                     setVisible(false);
                     minesFinder.btnUserSettingGameActionPerfomed(evt);
                     break;
+                case "Hint":
+                    hint();
+                    break;
                 case "Exit":
                     setVisible(false);
                     break;
@@ -132,6 +136,16 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
 
+    private void hint() {
+        for (int x = 0; x < minefield.getWidth(); x++) {
+            for (int y = 0; y < minefield.getHeight(); y++) {
+                if (minefield.mines[x][y]) {
+                    buttons[x][y].setEstado(13);
+                }
+
+            }
+        }
+    }
 
     public GameWindow(Minefield minefield, RecordTable record) {
         initComponents();
