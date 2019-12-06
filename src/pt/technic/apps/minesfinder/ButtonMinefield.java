@@ -46,6 +46,10 @@ public class ButtonMinefield extends JButton {
                 setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/mark.png")));
                 setBackground(Color.orange);
                 break;
+            case Minefield.HINT:
+                setIcon(new ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/mines.png")));
+                setBackground(Color.black);
+                break;
             case Minefield.BUSTED:
                 setIcon(new ImageIcon(getClass().getResource(imageValue)));
                 setBackground(Color.red);
