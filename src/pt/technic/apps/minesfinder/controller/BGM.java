@@ -1,4 +1,4 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.controller;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;

@@ -1,6 +1,10 @@
 package pt.technic.apps.minesfinder;
 
-import org.apache.http.auth.ChallengeState;
+import pt.technic.apps.minesfinder.controller.BGM;
+import pt.technic.apps.minesfinder.controller.FireBaseCtrl;
+import pt.technic.apps.minesfinder.model.RecordTable;
+import pt.technic.apps.minesfinder.model.RecordTableListener;
+import pt.technic.apps.minesfinder.view.*;
 
 import java.awt.event.ActionEvent;
 import java.io.File;

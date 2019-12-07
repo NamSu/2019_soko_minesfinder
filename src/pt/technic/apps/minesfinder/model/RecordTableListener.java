@@ -1,4 +1,6 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.model;
+
+import pt.technic.apps.minesfinder.model.RecordTable;
 
 /**
  *

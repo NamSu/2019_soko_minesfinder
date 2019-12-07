@@ -1,6 +1,9 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.view;
 
-import java.awt.Color;
+import pt.technic.apps.minesfinder.MinesFinder;
+import pt.technic.apps.minesfinder.model.RecordTable;
+import pt.technic.apps.minesfinder.controller.BGM;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.*;
-import javax.swing.border.*;
 
 /**
  *

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import pt.technic.apps.minesfinder.FireBaseCtrl;
-import pt.technic.apps.minesfinder.Minefield;
+import pt.technic.apps.minesfinder.controller.FireBaseCtrl;
+import pt.technic.apps.minesfinder.view.Minefield;
 
 /**
  *

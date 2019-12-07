@@ -1,4 +1,4 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.view;
 
 import javax.swing.*;
 import java.awt.*;

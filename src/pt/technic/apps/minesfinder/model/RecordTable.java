@@ -1,4 +1,4 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

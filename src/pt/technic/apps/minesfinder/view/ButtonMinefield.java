@@ -1,7 +1,6 @@
-package pt.technic.apps.minesfinder;
+package pt.technic.apps.minesfinder.view;
 
 import java.awt.Color;
-import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -24,7 +23,7 @@ public class ButtonMinefield extends JButton {
     public ButtonMinefield(int col, int line) {
         this.col = col;
         this.line = line;
-        state=Minefield.COVERED;
+        state= Minefield.COVERED;
     }
     
     public void setEstado(int state) {
