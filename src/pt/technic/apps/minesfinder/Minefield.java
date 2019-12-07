@@ -16,12 +16,16 @@ public class Minefield {
     public static final int MARKED = 11;
     public static final int BUSTED = 12;
     public static final int HINT = 13;
+    public static final int PORTION = 14;
 
     public boolean[][] mines;
+    public boolean[][] portion;
     private int[][] states;
     private int width;
     private int height;
     private int numMines;
+    private int numPotion;
+    private int numPotionCheck;
     private Random random;
 
     private boolean firstPlay;
@@ -32,7 +36,7 @@ public class Minefield {
     private long timeGameDuration;
 
     public Minefield(int width, int height, int numMines) {
-        if(numMines<=0){
+        if (numMines<=0) {
             throw new IllegalArgumentException("지뢰의 개수는 0보다는 커야합니다.");
         }
 
@@ -40,6 +44,7 @@ public class Minefield {
         this.height = height;
         this.numMines = numMines;
         mines = new boolean[width][height];
+        portion = new boolean[width][height];
         states = new int[width][height];
 
         random = new Random();
@@ -47,6 +52,8 @@ public class Minefield {
         firstPlay = true;
         playerDefeated = false;
         gameFinished = false;
+
+        setRandomPotion();
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -60,21 +67,27 @@ public class Minefield {
             if (firstPlay) {
                 firstPlay = false;
                 placeMines(x, y);
+                placePotion(x, y);
                 timeGameStarted=System.currentTimeMillis();
             }
 
             if (mines[x][y]) {
-                for (int a = 0; a < mines[x].length; a++) { // makes mines show up
-                    for (int b = 0; b < mines[y].length; b++) {
-                        if (mines[a][b]) {
-                            states[a][b] = BUSTED;
+                if (numPotionCheck == 0) {
+                    // makes mines show up
+                    for (int a = 0; a < mines[x].length; a++) {
+                        for (int b = 0; b < mines[y].length; b++) {
+                            if (mines[a][b]) {
+                                states[a][b] = BUSTED;
+                            }
                         }
                     }
+
+                    playerDefeated = true;
+                    gameFinished = true;
+                    timeGameDuration=System.currentTimeMillis()-timeGameStarted;
                 }
 
-                playerDefeated = true;
-                gameFinished = true;
-                timeGameDuration=System.currentTimeMillis()-timeGameStarted;
+                numPotionCheck--;
                 return;
             }
 
@@ -83,6 +96,13 @@ public class Minefield {
 
             if (minesAround == 0) {
                 revealGridNeighbors(x, y);
+            }
+
+            if (portion[x][y]) {
+                states[x][y] = PORTION;
+                numPotionCheck++;
+                System.out.println(numPotionCheck);
+                return;
             }
 
             if(checkVictory()) {
@@ -102,6 +122,12 @@ public class Minefield {
             return System.currentTimeMillis()-timeGameStarted;
         }
         return timeGameDuration;
+    }
+
+    private void setRandomPotion() {
+        this.numPotion = random.nextInt(5) + 2;
+        this.numPotionCheck = 0;
+        System.out.println(numPotion);
     }
 
     private void revealGridNeighbors(int x, int y) {
@@ -172,6 +198,18 @@ public class Minefield {
                 y = random.nextInt(height);
             } while (mines[x][y] || (x == plX && y == plY));
             mines[x][y] = true;
+        }
+    }
+
+    private void placePotion(int plX, int plY) {
+        for (int i = 0; i < numPotion; i++) {
+            int x = 0;
+            int y = 0;
+            do {
+                x = random.nextInt(width);
+                y = random.nextInt(height);
+            } while (mines[x][y] || portion[x][y] || (x == plX && y == plY));
+            portion[x][y] = true;
         }
     }
 
