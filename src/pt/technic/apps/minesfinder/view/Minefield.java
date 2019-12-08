@@ -101,7 +101,6 @@ public class Minefield {
             if (portion[x][y]) {
                 states[x][y] = PORTION;
                 numPotionCheck++;
-                System.out.println(numPotionCheck);
                 return;
             }
 
@@ -161,7 +160,7 @@ public class Minefield {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (!mines[x][y]) {
-                    victory = victory && states[x][y] >= 0 && states[x][y] < 9;
+                    victory = victory && states[x][y] >= 0 && states[x][y] < 9 || states[x][y] == 14;
                 }
             }
         }
