@@ -97,7 +97,7 @@ public class GameWindow extends javax.swing.JFrame {
                     minesFinder.btnUserSettingGameActionPerfomed(evt);
                     break;
                 case "Hint":
-                    hint();
+                    hintAction();
                     break;
                 case "Exit":
                     setVisible(false);
@@ -111,7 +111,7 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
 
-    private void hint() {
+    private void hintAction() {
         for (int x = 0; x < minefield.getWidth(); x++) {
             for (int y = 0; y < minefield.getHeight(); y++) {
                 if (minefield.mines[x][y]) {
