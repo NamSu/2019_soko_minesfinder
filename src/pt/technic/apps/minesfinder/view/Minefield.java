@@ -117,16 +117,17 @@ public class Minefield {
         if(firstPlay){
             return 0;
         }
+
         if(!gameFinished){
             return System.currentTimeMillis()-timeGameStarted;
         }
+
         return timeGameDuration;
     }
 
     private void setRandomPotion() {
         this.numPotion = random.nextInt(5) + 2;
         this.numPotionCheck = 0;
-        System.out.println(numPotion);
     }
 
     private void revealGridNeighbors(int x, int y) {
@@ -201,6 +202,7 @@ public class Minefield {
     }
 
     private void placePotion(int plX, int plY) {
+        // the plX and plY is the player's first play
         for (int i = 0; i < numPotion; i++) {
             int x = 0;
             int y = 0;

@@ -1,6 +1,7 @@
 package pt.technic.apps.minesfinder;
 
 import pt.technic.apps.minesfinder.controller.BGM;
+import pt.technic.apps.minesfinder.controller.ContentViewCtrl;
 import pt.technic.apps.minesfinder.controller.FireBaseCtrl;
 import pt.technic.apps.minesfinder.model.RecordTable;
 import pt.technic.apps.minesfinder.model.RecordTableListener;
@@ -30,7 +31,6 @@ public class MinesFinder extends javax.swing.JFrame {
     private RecordTable recordMedium;
     private RecordTable recordHard;
     private RecordTable recordExtreme;
-    private RecordTable recordChallenge;
     private RecordTable recordUserSetting;
 
     public static int ChallengeLength = 4;
@@ -50,7 +50,6 @@ public class MinesFinder extends javax.swing.JFrame {
         recordMedium = new RecordTable();
         recordHard = new RecordTable();
         recordExtreme = new RecordTable();
-        recordChallenge = new RecordTable();
         recordUserSetting = new RecordTable();
 
         readGameRecords();
@@ -66,9 +65,6 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelExtremeName.setText(recordExtreme.getName());
         labelExtremePoints.setText(Long.toString(recordExtreme.getScore()/1000));
-
-        labelChallengeName.setText(recordExtreme.getName());
-        labelChallengePoints.setText(Long.toString(recordChallenge.getScore()/1000));
 
         labelUserSettingName.setText(recordUserSetting.getName());
         labelUserSettingPoints.setText(Long.toString(recordUserSetting.getScore()/1000));
@@ -101,13 +97,6 @@ public class MinesFinder extends javax.swing.JFrame {
             }
         });
 
-        recordChallenge.addRecordTableListener(new RecordTableListener() {
-            @Override
-            public void recordUpdated(RecordTable record) {
-                recordChallengeUpdated(record);
-            }
-        });
-
         recordUserSetting.addRecordTableListener(new RecordTableListener() {
             @Override
             public void recordUpdated(RecordTable record) {
@@ -116,48 +105,37 @@ public class MinesFinder extends javax.swing.JFrame {
         });
     }
 
+    private void recordInternetUpdater(String name, Object score, String level) {
+        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
+        fireBaseCtrl.update(score, level, name);
+        fireBaseCtrl.close();
+    }
+
     private void recordEasyUpdated(RecordTable record) {
         labelEasyName.setText(record.getName());
         labelEasyPoints.setText(Long.toString(record.getScore()/1000));
-        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
-        fireBaseCtrl.update(record.getScore() / 1000, "Easy", record.getName());
-        fireBaseCtrl.close();
+        recordInternetUpdater(record.getName(), record.getScore()/1000, "Easy");
         saveGameRecords();
     }
 
     private void recordMediumUpdated(RecordTable record) {
         labelMediumName.setText(record.getName());
         labelMediumPoints.setText(Long.toString(record.getScore()/1000));
-        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
-        fireBaseCtrl.update(record.getScore() / 1000, "Medium", record.getName());
-        fireBaseCtrl.close();
+        recordInternetUpdater(record.getName(), record.getScore()/1000, "Medium");
         saveGameRecords();
     }
 
     private void recordHardUpdated(RecordTable record) {
         labelHardName.setText(record.getName());
         labelHardPoints.setText(Long.toString(record.getScore()/1000));
-        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
-        fireBaseCtrl.update(record.getScore() / 1000, "Hard", record.getName());
-        fireBaseCtrl.close();
+        recordInternetUpdater(record.getName(), record.getScore()/1000, "Hard");
         saveGameRecords();
     }
 
     private void recordExtremeUpdated(RecordTable record) {
         labelExtremeName.setText(record.getName());
         labelExtremePoints.setText(Long.toString(record.getScore()/1000));
-        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
-        fireBaseCtrl.update(record.getScore() / 1000, "Extreme", record.getName());
-        fireBaseCtrl.close();
-        saveGameRecords();
-    }
-
-    private void recordChallengeUpdated(RecordTable record) {
-        labelChallengeName.setText(record.getName());
-        labelChallengePoints.setText(Long.toString(record.getScore()/1000));
-        FireBaseCtrl fireBaseCtrl = new FireBaseCtrl();
-        fireBaseCtrl.update(record.getScore() / 1000, "Challenge", record.getName());
-        fireBaseCtrl.close();
+        recordInternetUpdater(record.getName(), record.getScore()/1000, "Extreme");
         saveGameRecords();
     }
 
@@ -176,7 +154,6 @@ public class MinesFinder extends javax.swing.JFrame {
             oos.writeObject(recordMedium);
             oos.writeObject(recordHard);
             oos.writeObject(recordExtreme);
-            oos.writeObject(recordChallenge);
             oos.writeObject(recordUserSetting);
             oos.close();
         } catch (IOException ex) {
@@ -195,12 +172,10 @@ public class MinesFinder extends javax.swing.JFrame {
                 recordMedium = (RecordTable) ois.readObject();
                 recordHard = (RecordTable) ois.readObject();
                 recordExtreme = (RecordTable) ois.readObject();
-                recordChallenge = (RecordTable) ois.readObject();
                 recordUserSetting = (RecordTable) ois.readObject();
                 ois.close();
             } catch (IOException | ClassNotFoundException ex) {
-                Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -227,9 +202,6 @@ public class MinesFinder extends javax.swing.JFrame {
         labelExtreme = new javax.swing.JLabel();
         labelExtremeName = new javax.swing.JLabel();
         labelExtremePoints = new javax.swing.JLabel();
-        labelChallenge = new javax.swing.JLabel();
-        labelChallengeName = new javax.swing.JLabel();
-        labelChallengePoints = new javax.swing.JLabel();
         labelUserSetting = new javax.swing.JLabel();
         labelUserSettingName = new javax.swing.JLabel();
         labelUserSettingPoints = new javax.swing.JLabel();
@@ -296,10 +268,6 @@ public class MinesFinder extends javax.swing.JFrame {
 
         labelExtremePoints.setText("9999");
 
-        labelChallenge.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        labelChallenge.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelChallenge.setText("Challenge");
-
         labelExtremeName.setText("Player");
 
         labelExtremePoints.setText("9999");
@@ -360,12 +328,6 @@ public class MinesFinder extends javax.swing.JFrame {
                                                 .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(labelExtremePoints))
 
-                                        .addComponent(labelChallenge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(panelRecordsLayout.createSequentialGroup()
-                                                .addComponent(labelChallengeName)
-                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(labelChallengePoints))
-
                                         .addComponent(labelUserSetting, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(panelRecordsLayout.createSequentialGroup()
                                                 .addComponent(labelUserSettingName)
@@ -384,6 +346,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
                                 .addContainerGap()
                         ));
+
         panelRecordsLayout.setVerticalGroup(
                 panelRecordsLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(panelRecordsLayout.createSequentialGroup()
@@ -418,13 +381,6 @@ public class MinesFinder extends javax.swing.JFrame {
                                         .addComponent(labelExtremeName))
 
                                 .addGap(18, 18, 18)
-                                .addComponent(labelChallenge)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(labelChallengePoints)
-                                        .addComponent(labelChallengeName))
-
-                                .addGap(18, 18, 18)
                                 .addComponent(labelUserSetting)
                                 .addPreferredGap(ComponentPlacement.RELATED)
                                 .addGroup(panelRecordsLayout.createParallelGroup(Alignment.LEADING)
@@ -439,7 +395,6 @@ public class MinesFinder extends javax.swing.JFrame {
                                 .addComponent(btnUserSettingGame, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(ComponentPlacement.RELATED)
 
-
                                 .addPreferredGap(ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
 
                         ));
@@ -449,7 +404,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
         panelBtns.setLayout(new java.awt.GridLayout(3, 0));
 
-        btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/easy.png"))); // NOI18N
+        btnEasy.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("easy"))));
         btnEasy.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,8 +413,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnEasy);
 
-        btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/medium.png"))); // NOI18N
-        //btnMedium.setText("Medium");
+        btnMedium.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("medium"))));
         btnMedium.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,8 +422,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnMedium);
 
-        btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/hard.png"))); // NOI18N
-        //btnHard.setText("Hard");
+        btnHard.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("hard"))));
         btnHard.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -478,8 +431,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnHard);
 
-        btnExtreme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/extreme.png"))); // NOI18N
-        //btnExtreme.setText("Extreme");
+        btnExtreme.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("extreme"))));
         btnExtreme.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +440,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnExtreme);
 
-        btnChallenge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/flower.png")));
+        btnChallenge.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("challenge"))));
         btnChallenge.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -497,8 +449,7 @@ public class MinesFinder extends javax.swing.JFrame {
         });
         panelBtns.add(btnChallenge);
 
-        btnTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pt/technic/apps/minesfinder/resources/tutorial.png"))); // NOI18N
-        //btnTutorial.setText("Play Tutorial");
+        btnTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource(ContentViewCtrl.setImageResources("tutorial"))));
         btnTutorial.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,7 +470,7 @@ public class MinesFinder extends javax.swing.JFrame {
         getContentPane().add(panelBtns, java.awt.BorderLayout.CENTER);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     public void btnUserSettingGameActionPerfomed(java.awt.event.ActionEvent evt) {
         JTextField width = new JTextField(5);
@@ -566,7 +517,7 @@ public class MinesFinder extends javax.swing.JFrame {
 
     public void btnChallengeActionPerformed(java.awt.event.ActionEvent evt) {
         isChallengeModeSwitch = true;
-        GameWindow gameWindow = new GameWindow(new Minefield(ChallengeLength, ChallengeLength, ChallengeMineNum), recordChallenge);
+        GameWindow gameWindow = new GameWindow(new Minefield(ChallengeLength, ChallengeLength, ChallengeMineNum), null);
         setMinesTheme();
 
         bgm.suspend();
@@ -575,40 +526,40 @@ public class MinesFinder extends javax.swing.JFrame {
 
     public void ChallengeActionPerformed() {
         isChallengeModeSwitch = true;
-        GameWindow gameWindow = new GameWindow(new Minefield(ChallengeLength, ChallengeLength, ChallengeMineNum), recordChallenge);
+        GameWindow gameWindow = new GameWindow(new Minefield(ChallengeLength, ChallengeLength, ChallengeMineNum), null);
         setMinesTheme();
 
         bgm.suspend();
         gameWindow.setVisible(true);
     }
 
-    public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
+    public void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {
         GameWindow gameWindow = new GameWindow(new Minefield(6, 6, 8), recordEasy);
         setMinesTheme();
 
         bgm.suspend();
         gameWindow.setVisible(true);
-    }//GEN-LAST:event_btnEasyActionPerformed
+    }
 
-    public void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+    public void btnExitActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
+    }
 
-    public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
+    public void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {
         GameWindow gameWindow = new GameWindow(new Minefield(8, 8, 20), recordMedium);
         setMinesTheme();
 
         bgm.suspend();
         gameWindow.setVisible(true);
-    }//GEN-LAST:event_btnMediumActionPerformed
+    }
 
-    public void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
+    public void btnHardActionPerformed(java.awt.event.ActionEvent evt) {
         GameWindow gameWindow = new GameWindow(new Minefield(10, 10, 36), recordHard);
         setMinesTheme();
 
         bgm.suspend();
         gameWindow.setVisible(true);
-    }//GEN-LAST:event_btnHardActionPerformed
+    }
 
     private boolean isExtremePlay() {
         File f = new File(System.getProperty("user.dir") + File.separator + ".minesfinder.records");
@@ -621,11 +572,11 @@ public class MinesFinder extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, answer, answer[0]);
 
         if (userAnswer == 0) {
-            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/mines.png");
+            ContentViewCtrl.setMineImage("mines");
         } else if (userAnswer == 1) {
-            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/flower.png");
+            ContentViewCtrl.setMineImage("flower");
         } else {
-            ButtonMinefield.setMineImage("/pt/technic/apps/minesfinder/resources/mines.png");
+            ContentViewCtrl.setMineImage("mines");
         }
     }
 
@@ -633,11 +584,6 @@ public class MinesFinder extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
 
         // input starting bgm
         bgm.start();
@@ -658,7 +604,6 @@ public class MinesFinder extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MinesFinder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -668,7 +613,6 @@ public class MinesFinder extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Records;
     private javax.swing.JButton btnEasy;
     private javax.swing.JButton btnExit;
@@ -691,9 +635,6 @@ public class MinesFinder extends javax.swing.JFrame {
     private javax.swing.JLabel labelMedium;
     private javax.swing.JLabel labelMediumName;
     private javax.swing.JLabel labelMediumPoints;
-    private javax.swing.JLabel labelChallenge;
-    private javax.swing.JLabel labelChallengeName;
-    private javax.swing.JLabel labelChallengePoints;
     private javax.swing.JLabel labelUserSetting;
     private javax.swing.JLabel labelUserSettingName;
     private javax.swing.JLabel labelUserSettingPoints;

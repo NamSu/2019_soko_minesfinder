@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,9 +21,9 @@ public class RankingWebView {
 
             Desktop.getDesktop().browse(new URI("https://minesfinder-rank.firebaseapp.com"));
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            Logger.getLogger(RankingWebView.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(RankingWebView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }

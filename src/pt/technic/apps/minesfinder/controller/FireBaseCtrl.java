@@ -23,7 +23,7 @@ public class FireBaseCtrl {
 
     public FireBaseCtrl() {
         try {
-            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "\\" + "minesfinder-rank-firebase.json");
+            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "/src/pt/technic/apps/minesfinder/resources/" + "minesfinder-rank-firebase.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl(DATABASE_URL)
@@ -32,15 +32,15 @@ public class FireBaseCtrl {
             FirebaseApp.initializeApp(options);
             firebaseDatabase = FirebaseDatabase.getInstance(DATABASE_URL);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "I/O is not intelligent!");
         }
     }
 
     public void update(Object value, String level, String name) {
         long unixTime = System.currentTimeMillis() / 1000;
         try {
-            DatabaseReference scoreReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("score"); // ex. level(easy) -> score + "value"
-            DatabaseReference nameReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("name"); // ex. level(easy) -> name + "name"
+            DatabaseReference scoreReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("score"); // ex. level(param1) -> score + "value"
+            DatabaseReference nameReference = firebaseDatabase.getReference(level).child(String.valueOf(unixTime)).child("name"); // ex. level(param2) -> name + "name"
             final CountDownLatch latch = new CountDownLatch(1);
 
             nameReference.setValue(name, new DatabaseReference.CompletionListener() {
@@ -50,7 +50,7 @@ public class FireBaseCtrl {
                         Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data not saved.");
                         latch.countDown();
                     } else {
-                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data saved.");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.INFO, "name data saved.");
                         latch.countDown();
                     }
                 }
@@ -60,10 +60,10 @@ public class FireBaseCtrl {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data not saved.");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "score data not saved.");
                         latch.countDown();
                     } else {
-                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "name data saved.");
+                        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.INFO, "score data saved.");
                         latch.countDown();
                     }
                 }
@@ -71,12 +71,13 @@ public class FireBaseCtrl {
 
             latch.await();
         } catch (InterruptedException e) {
-            Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.WARNING, "interrupted!");
+            Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.SEVERE, "interrupted!");
             Thread.currentThread().interrupt();
         }
     }
 
     public void close() {
+        Logger.getLogger(FireBaseCtrl.class.getName()).log(Level.INFO, "firebase controller is safely closed.");
         firebaseDatabase.getApp().delete();
     }
 }

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "minesfinder-rank",
+  "private_key_id": "78d2cf53c90656030518f7f225eaa23960c334f0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDAj1fAqB+tDJl6\n6yaeOjxC9cbQlolkpP7Hk9AkTDIofDEO5XTuTEHEdzahmLRcSeDpVh1IT/LzRBhe\n2GKzvTnijF8Y2rzVIUV8iWRKgVvg/RfFpnlCmcaAzif6K7fm/vffZ/06OCbqxzvH\n490y/40FwEWmb5NwUzhjYLQj9cqv7+4DJ2T/kuZyWb8jdbvDOtkBWjoZbaxfHHJ7\nd2D1b8goDTkaSkaPP47TQHzd2NeKu8aqaz37I2e7ZGJclrqGChxLTTMWZfrY5bMu\nY0ZMFzeSz0Q62eiZnUTUyVJuEUn0vEmxXv6688OE5IpqLIsAPZ/Ib7hdLTLNjfsQ\nf1CXHD6tAgMBAAECggEAPxI0cfwfc/T+iI5hNc5pUp1iI4xLMFYCxagasujqPOyA\nvRpXNH5xxEIv+LolyVzBeGwmZzsYnqmdOeOyYKEIRrYnp+Jtm3msYuA1o1m/mHAN\ny0V9zlzD8giUe5K6R8UXt2s+PEWMKbZcVFrEZyHhNRMHPT6qkk4P2C0ik+y8GOfx\nXmLFmIqKQuwiSOTnE7+EWpM5MwwnjqFws9gA+SAdn5s4ZIcN6qVLwdd3sHB7C9m2\nDeoyDXrWLOaWOTBL3B+UscuFZBOU4QI7+I2DjqxPDVuvGnGonqMZWfL3uIRProev\nQanuqegVBCBWOVCnNlqo9LXRmnFPn3rU0a8MIXVKWQKBgQD18NldWs/vN7cYNoQN\nOCcvqtLe8WksSXvQYkG+fHRP/9avytcrZ9TbonsyK6bNohx7pCkS9/jgInhh19bV\njDtUWIrMybJvYrbYGSizr6Jq7vaOl17jX4+2xEIFIF6ibBWuaUGAmhS3cuiHIXsA\naIZH0VS22yagKxzVqcVXW7LJEwKBgQDIb5Artyxnh3T2Mj4sqcRORW6f5MN5NLG+\nKBWjy3jleP0T5D4yoKoLkjzjwNy6N18V4ytwERvXVi0CHon6Jq3tc1dW0x4mfZBT\nbdgKRdQdKtB5pm3Xc66T5U40euV635kDf1dsq8AsDYgpPHJ4pOhd9aQsUYxVCkNM\ns+Nh3QORPwKBgG6cYvZEmI5LLZK7OgrD/YPHvU09oAKmDgR7nHvyd1FfjAvGG53O\n9gHOAsBet4d2aH8HJt38HreXaTMAIwQqLKjTpaFS+Wh1Kizoq9CcplyXmtYoqCl0\n2irl+5dYppdAK0Qk3KvdIIIdMQ1NdoeJexMjx4jx6V5R5YcG8tVGTZN3AoGAbBLD\nkN62gagnJ6yVm616HJ4RdQN7ZrpD8H1albPbnxeqlfQmmVPJ/G1AialvGrVKftm7\njTScZ3Ke2BqxWQFMHNFpUXaKNkTT8jgzGe7m3Uc9m6piZZ6JjlNA5MkzPRqdPaaG\n9CBzgQ1W0q02J9j7NdaCTCc4XI4pFY2VWCo8hy8CgYEA1re9iYmBeJyMFf6wQZSm\nuLFlVk5OwGN0jMf12HcZ0nwpi0vRndITnQAY6SEsd6zwQrA2mx+EtJQi7gArN4OC\nNm8HPuHruyKhTz1O0bQQehpp1ZkYwZQRup8g/NBkeWCx6GrCH/1zaELbxaxWyg8r\nioyap9m3UDZKr9sx2BTrqQw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-k9nh3@minesfinder-rank.iam.gserviceaccount.com",
+  "client_id": "116839973939254456492",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-k9nh3%40minesfinder-rank.iam.gserviceaccount.com"
+}
