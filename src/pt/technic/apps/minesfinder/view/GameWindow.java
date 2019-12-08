@@ -117,7 +117,6 @@ public class GameWindow extends javax.swing.JFrame {
                 if (minefield.mines[x][y]) {
                     buttons[x][y].setEstado(13);
                 }
-
             }
         }
     }
