@@ -20,7 +20,7 @@ public class DeveloperView extends JDialog{
         p1.add(new JLabel("201811222 남윤수", 0));
         p1.add(new JLabel("201413311 이정훈", 0));
         p1.add(new JLabel("201822483 정 우", 0));
-        p1.add(new JLabel("release 1.0.1", 0));
+        p1.add(new JLabel("release 1.0.2", 0));
 
         // 확인 버튼
         JPanel p2 = new JPanel();

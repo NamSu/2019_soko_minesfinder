@@ -44,17 +44,57 @@ public class GameWindow extends javax.swing.JFrame {
         JLabel timerLabel = new JLabel();
         TimerThread timer = new TimerThread(timerLabel);
 
-        GameWindowMenuAction listener = new GameWindowMenuAction();
+        ActionListener action = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                String inputCommand = evt.getActionCommand();
 
-        tequipment.add(new JMenuItem("Easy")).addActionListener(listener);
-        tequipment.add(new JMenuItem("Medium")).addActionListener(listener);
-        tequipment.add(new JMenuItem("Hard")).addActionListener(listener);
-        tequipment.add(new JMenuItem("Extreme")).addActionListener(listener);
-        tequipment.add(new JMenuItem("UserSetting")).addActionListener(listener);
-        tequipment.add(new JMenuItem("Hint")).addActionListener(listener);
-        tequipment.add(new JMenuItem("Exit")).addActionListener(listener);
+                switch (inputCommand) {
+                    case "Easy":
+                        setVisible(false);
+                        minesFinder.btnEasyActionPerformed(evt);
+                        break;
+                    case "Medium":
+                        setVisible(false);
+                        minesFinder.btnMediumActionPerformed(evt);
+                        break;
+                    case "Hard":
+                        setVisible(false);
+                        minesFinder.btnHardActionPerformed(evt);
+                        break;
+                    case "Extreme":
+                        setVisible(false);
+                        minesFinder.btnExtremeActionPerfomed(evt);
+                        break;
+                    case "UserSetting":
+                        setVisible(false);
+                        minesFinder.btnUserSettingGameActionPerfomed(evt);
+                        break;
+                    case "Hint":
+                        hintAction();
+                        break;
+                    case "Exit":
+                        setVisible(false);
+                        break;
+                    case "개발자":
+                        DeveloperView developerView = new DeveloperView();
+                        developerView.show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
-        help.add(new JMenuItem("개발자")).addActionListener(listener);
+        tequipment.add(new JMenuItem("Easy")).addActionListener(action);
+        tequipment.add(new JMenuItem("Medium")).addActionListener(action);
+        tequipment.add(new JMenuItem("Hard")).addActionListener(action);
+        tequipment.add(new JMenuItem("Extreme")).addActionListener(action);
+        tequipment.add(new JMenuItem("UserSetting")).addActionListener(action);
+        tequipment.add(new JMenuItem("Hint")).addActionListener(action);
+        tequipment.add(new JMenuItem("Exit")).addActionListener(action);
+
+        help.add(new JMenuItem("개발자")).addActionListener(action);
 
         timer.start();
 
@@ -67,47 +107,6 @@ public class GameWindow extends javax.swing.JFrame {
         jMenuBar.add(showMineNum);
 
         setJMenuBar(jMenuBar);
-    }
-
-    class GameWindowMenuAction implements ActionListener {
-        public void actionPerformed(ActionEvent evt) {
-            String cmd = evt.getActionCommand();
-
-            switch (cmd) {
-                default:
-                    break;
-                case "Easy":
-                    setVisible(false);
-                    minesFinder.btnEasyActionPerformed(evt);
-                    break;
-                case "Medium":
-                    setVisible(false);
-                    minesFinder.btnMediumActionPerformed(evt);
-                    break;
-                case "Hard":
-                    setVisible(false);
-                    minesFinder.btnHardActionPerformed(evt);
-                    break;
-                case "Extreme":
-                    setVisible(false);
-                    minesFinder.btnExtremeActionPerfomed(evt);
-                    break;
-                case "UserSetting":
-                    setVisible(false);
-                    minesFinder.btnUserSettingGameActionPerfomed(evt);
-                    break;
-                case "Hint":
-                    hintAction();
-                    break;
-                case "Exit":
-                    setVisible(false);
-                    break;
-                case "개발자":
-                    DeveloperView developerView = new DeveloperView();
-                    developerView.show();
-                    break;
-            }
-        }
     }
 
 
@@ -125,22 +124,20 @@ public class GameWindow extends javax.swing.JFrame {
         initComponents();
         GameWindowMenuBar();
 
-
         this.minefield = minefield;
         this.record = record;
         swingMineNum = minefield.getNumMines();
 
         buttons = new ButtonMinefield[minefield.getWidth()][minefield.getHeight()];
 
-        getContentPane().setLayout(new GridLayout(minefield.getWidth(),
-                minefield.getHeight()));
+        getContentPane().setLayout(new GridLayout(minefield.getWidth(), minefield.getHeight()));
 
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // starting gun sound
-                BGM startBgm = new BGM("gun.mp3", false);
-                startBgm.start();
+                BGM clickBgm = new BGM("gun.mp3", false);
+                clickBgm.start();
 
                 ButtonMinefield button = (ButtonMinefield) e.getSource();
 
@@ -154,7 +151,8 @@ public class GameWindow extends javax.swing.JFrame {
                         BGM defeatBgm = new BGM("Defeat.mp3", false);
                         defeatBgm.start();
 
-                        JOptionPane.showMessageDialog(null, "지뢰를 밟았습니다ㅜ", "실패", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                "지뢰를 밟았습니다ㅜ", "실패", JOptionPane.INFORMATION_MESSAGE);
                         defeatBgm.stop();
 
                     } else {
@@ -168,7 +166,9 @@ public class GameWindow extends javax.swing.JFrame {
                             victoryBgm.stop();
                             minesFinder.ChallengeActionPerformed();
                         } else {
-                            JOptionPane.showMessageDialog(null, "축하합니다. 당신은 모든 지뢰를 " + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null,
+                                    "축하합니다. 당신은 모든 지뢰를 " + (minefield.getGameDuration() / 1000) + "초 만에 찾았습니다. 확인을 눌러 랭킹을 기록하세요.",
+                                    "성공", JOptionPane.INFORMATION_MESSAGE);
                             long a = minefield.getGameDuration();
                             long b = record.getScore();
                             boolean newRecord = minefield.getGameDuration() < record.getScore();
@@ -214,20 +214,16 @@ public class GameWindow extends javax.swing.JFrame {
             }
 
             @Override
-            public void mouseClicked(MouseEvent me) {
-            }
+            public void mouseClicked(MouseEvent me) { }
 
             @Override
-            public void mouseReleased(MouseEvent me) {
-            }
+            public void mouseReleased(MouseEvent me) { }
 
             @Override
-            public void mouseEntered(MouseEvent me) {
-            }
+            public void mouseEntered(MouseEvent me) { }
 
             @Override
-            public void mouseExited(MouseEvent me) {
-            }
+            public void mouseExited(MouseEvent me) { }
         };
 
         KeyListener keyListener = new KeyListener() {
@@ -265,12 +261,10 @@ public class GameWindow extends javax.swing.JFrame {
             }
 
             @Override
-            public void keyTyped(KeyEvent ke) {
-            }
+            public void keyTyped(KeyEvent ke) { }
 
             @Override
-            public void keyReleased(KeyEvent ke) {
-            }
+            public void keyReleased(KeyEvent ke) { }
         };
 
         // Create buttons for the player
