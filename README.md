@@ -8,3 +8,6 @@ IDEA IntelliJ + Eclipse
 1. clone-it to development workspace
 2. (eclipse 기준)File - Import - Exisisting Project~~
 3. GG
+
+### 알려진 문제점
+1. 랭킹 안들어감 -> secret key 
